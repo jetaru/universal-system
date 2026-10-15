@@ -10,6 +10,7 @@ export function useSolutionSelector() {
     contact: "",
     service: "asesoria",
     detail: "",
+    _honeypot: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,6 +50,7 @@ export function useSolutionSelector() {
       contact: "",
       service: "asesoria",
       detail: "",
+      _honeypot: "",
     });
     setResult(null);
     setError(null);

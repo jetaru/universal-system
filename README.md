@@ -31,13 +31,41 @@ src/
 │   │   │   ├── PillarsSection.tsx
 │   │   │   ├── LaboratorySection.tsx
 │   │   │   ├── MethodologySection.tsx
+│   │   │   ├── EnterpriseSection.tsx   # Puente B2B / Corporativo hacia jetaru.github.io
 │   │   │   ├── SolutionSelectorSection.tsx
 │   │   │   └── TestimonialsSection.tsx
 │   │   └── ui/                     # Primitivas de UI e iconografía SVG
 │   └── hooks/                      # Hooks interactivos (ScrollReveal, Cursor Flashlight, Selector)
 │
-└── app/                            # Next.js App Router (Páginas, Layout y globals.css)
+├── core/security/                  # Seguridad de Aplicación (OWASP Top 10)
+│   ├── sanitizer.ts                # Sanitización estricta contra XSS & Injection (A03:2021)
+│   └── rate-limiter.ts             # Throttling, Rate-Limiting & Anti-Flood (A04:2021)
+│
+└── app/                            # Next.js App Router (Páginas, Layout, Headers CSP y globals.css)
 ```
+
+---
+
+## 🛡️ Medidas de Seguridad Implementadas (OWASP Top 10)
+
+1. **A03:2021 — Inyección y Cross-Site Scripting (XSS):**
+   - Sanitización de strings en capas de dominio: eliminación de etiquetas `<script>`, `<iframe>`, `on*=` handlers y URIs `javascript:`.
+   - Validación tipada por regex para nombres, teléfonos internacionales y límites estrictos de longitud.
+2. **A04:2021 — Diseño Inseguro & Anti-Automatización (Bots & Flood):**
+   - **Honeypot Trap:** Campo señuelo invisible para usuarios reales que neutraliza scripts de spam.
+   - **Throttling & Rate-Limiting:** Intervalo mínimo obligatorio de 5 segundos entre solicitudes y tope por ventana temporal.
+3. **A05:2021 — Configuración de Seguridad & Cabeceras HTTP:**
+   - Content Security Policy (CSP) restrictiva (`default-src 'self'`).
+   - `X-Content-Type-Options: nosniff` (previene ataques MIME-sniffing).
+   - `X-Frame-Options: DENY` (protección contra Clickjacking).
+   - `Referrer-Policy: strict-origin-when-cross-origin`.
+4. **A01:2021 — Control de Acceso y Reverse Tabnabbing:**
+   - Todos los hipervínculos externos incluyen `rel="noopener noreferrer"`.
+
+---
+
+## 🏢 Soluciones Corporativas & B2B
+Incluye un apartado editorial dedicado que conecta con el portafolio senior de arquitectura empresarial en [**jetaru.github.io**](https://jetaru.github.io).
 
 ---
 
@@ -56,7 +84,7 @@ src/
 
 Configurados de acuerdo al perfil oficial de **Jorge Thompson (Jorge Eduardo Thompson Alvarado)**:
 
-- **WhatsApp Directo:** [+56 9 8245 6154](https://wa.me/56982456154)
+- **WhatsApp Directo:** [+56 9 5333 2870](https://wa.me/56953332870)
 - **Correo Electrónico:** [a.thompson.jorge@gmail.com](mailto:a.thompson.jorge@gmail.com)
 - **LinkedIn:** [jorge-e-thompson-alvarado](https://linkedin.com/in/jorge-e-thompson-alvarado)
 - **GitHub:** [jetaru](https://github.com/jetaru)
