@@ -24,6 +24,7 @@ export function Navbar() {
     { label: "Soporte Técnico", href: "#pilares" },
     { label: "Laboratorio", href: "#laboratorio" },
     { label: "Metodología", href: "#metodologia" },
+    { label: "Empresas B2B", href: "#empresas" },
     { label: "Testimonios", href: "#testimonios" },
   ];
 

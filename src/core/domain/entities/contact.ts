@@ -4,6 +4,7 @@ export interface ContactMessage {
   service: "asesoria" | "clases" | "soporte";
   detail?: string;
   email?: string;
+  _honeypot?: string; // OWASP anti-bot trap
 }
 
 export interface ContactSubmissionResult {

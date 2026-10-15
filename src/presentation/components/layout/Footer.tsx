@@ -98,6 +98,17 @@ export function Footer() {
                   Protocolos &amp; Metodología Transparente
                 </a>
               </li>
+              <li>
+                <a
+                  className="text-cyan-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1 hover:translate-x-1 duration-200"
+                  href={appConfig.author.enterpriseUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>Soluciones Corporativas &amp; B2B (jetaru)</span>
+                  <span>↗</span>
+                </a>
+              </li>
             </ul>
           </div>
 

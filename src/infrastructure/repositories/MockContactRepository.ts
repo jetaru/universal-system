@@ -24,7 +24,8 @@ export class MockContactRepository implements IContactRepository {
       `*Área:* ${encodeURIComponent(serviceLabel)}%0A` +
       `*Mensaje:* ${encodeURIComponent((message.detail || "Consulta general").trim())}`;
 
-    const whatsappUrl = `https://wa.me/56982456154?text=${waText}`;
+    const cleanPhone = appConfig.author.phone.replace(/[^0-9]/g, "");
+    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${waText}`;
 
     const mailtoSubject = encodeURIComponent(`[Universal System] Solicitud #${ticketId} - ${message.name}`);
     const mailtoBody = encodeURIComponent(

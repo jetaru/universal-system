@@ -11,6 +11,7 @@ import {
   AlertCircle,
   Copy,
   Check,
+  ShieldCheck,
 } from "@/presentation/components/ui/Icons";
 
 export function SolutionSelectorSection() {
@@ -133,6 +134,19 @@ export function SolutionSelectorSection() {
           </div>
         ) : (
           <form className="space-y-6" onSubmit={submitForm}>
+            {/* OWASP A04: Anti-Bot Honeypot - Invisible to legitimate users */}
+            <div className="hidden opacity-0 pointer-events-none absolute -left-[9999px]" aria-hidden="true">
+              <label htmlFor="form_security_trap">No completar este campo</label>
+              <input
+                id="form_security_trap"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={formData._honeypot || ""}
+                onChange={(e) => updateField("_honeypot", e.target.value)}
+              />
+            </div>
+
             {error && (
               <div className="p-4 rounded-lg bg-red-950/40 border border-red-800/60 text-red-300 text-xs flex items-center gap-2.5">
                 <AlertCircle className="w-4 h-4 shrink-0" />
@@ -191,6 +205,7 @@ export function SolutionSelectorSection() {
                   id="name"
                   type="text"
                   required
+                  maxLength={80}
                   value={formData.name}
                   onChange={(e) => updateField("name", e.target.value)}
                   placeholder="Ej: Marcela González"
@@ -209,9 +224,10 @@ export function SolutionSelectorSection() {
                   id="contact"
                   type="tel"
                   required
+                  maxLength={25}
                   value={formData.contact}
                   onChange={(e) => updateField("contact", e.target.value)}
-                  placeholder="Ej: +56 9 8245 6154"
+                  placeholder="Ej: +56 9 5333 2870"
                   className="luxury-input w-full bg-black/40 border border-white/10 rounded px-4 py-2.5 text-xs text-white placeholder-[#8b8e99]/50 focus:border-white/50 focus:ring-0 font-mono"
                 />
               </div>
@@ -228,15 +244,19 @@ export function SolutionSelectorSection() {
               <textarea
                 id="detail"
                 rows={3}
+                maxLength={1000}
                 value={formData.detail}
                 onChange={(e) => updateField("detail", e.target.value)}
                 placeholder="Ej: Deseo aprender a usar el home banking con seguridad sin temor a cometer errores..."
                 className="luxury-input w-full bg-black/40 border border-white/10 rounded px-4 py-2.5 text-xs text-white placeholder-[#8b8e99]/50 focus:border-white/50 focus:ring-0 font-sans resize-none"
               />
+              <span className="text-[10px] text-neutral-500 font-mono block text-right mt-1">
+                {(formData.detail || "").length}/1000 caracteres
+              </span>
             </div>
 
-            {/* Submit Button */}
-            <div className="pt-2 text-center">
+            {/* Submit Button & OWASP Security Badge */}
+            <div className="pt-2 text-center space-y-3">
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -244,9 +264,15 @@ export function SolutionSelectorSection() {
               >
                 {isSubmitting ? "Registrando Solicitud..." : "Solicitar Asesoramiento Inmediato"}
               </button>
-              <p className="text-[11px] text-[#8b8e99] mt-3 font-mono">
-                Atención preferencial por orden de llegada. Sin ningún costo de consulta previa.
-              </p>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-[11px] text-[#8b8e99] font-mono">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.03] border border-white/5 text-emerald-400">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>OWASP Top 10 Secured (Anti-XSS &amp; Rate-Limiting)</span>
+                </span>
+                <span className="hidden sm:inline">•</span>
+                <span>Atención preferencial por orden de llegada.</span>
+              </div>
             </div>
           </form>
         )}

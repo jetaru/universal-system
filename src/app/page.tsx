@@ -7,6 +7,7 @@ import { HeroSection } from "@/presentation/components/sections/HeroSection";
 import { PillarsSection } from "@/presentation/components/sections/PillarsSection";
 import { LaboratorySection } from "@/presentation/components/sections/LaboratorySection";
 import { MethodologySection } from "@/presentation/components/sections/MethodologySection";
+import { EnterpriseSection } from "@/presentation/components/sections/EnterpriseSection";
 import { SolutionSelectorSection } from "@/presentation/components/sections/SolutionSelectorSection";
 import { TestimonialsSection } from "@/presentation/components/sections/TestimonialsSection";
 import { useScrollReveal } from "@/presentation/hooks/useScrollReveal";
@@ -25,6 +26,7 @@ export default function HomePage() {
         <PillarsSection />
         <LaboratorySection />
         <MethodologySection />
+        <EnterpriseSection />
         <SolutionSelectorSection />
         <TestimonialsSection />
       </main>
