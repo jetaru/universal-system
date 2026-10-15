@@ -1,0 +1,278 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import "tailwindcss";
+
+:root {
+  --background: #090a0d;
+  --foreground: #f3f4f6;
+  --brand-charcoal: #0a0a0c;
+  --brand-dark: #111215;
+  --brand-surface: #17181c;
+  --brand-card: #1c1e24;
+  --brand-border: rgba(255, 255, 255, 0.08);
+  --brand-border-light: rgba(255, 255, 255, 0.18);
+  --brand-silver: #d1d5db;
+  --brand-muted: #8b8e99;
+  --primary-accent: #38bdf8;
+  --primary-emerald: #10b981;
+}
+
+@theme inline {
+  --color-brand-charcoal: var(--brand-charcoal);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-card: var(--brand-card);
+  --color-brand-border: var(--brand-border);
+  --color-brand-border-light: var(--brand-border-light);
+  --color-brand-silver: var(--brand-silver);
+  --color-brand-muted: var(--brand-muted);
+  --font-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --letter-spacing-widest-plus: 0.22em;
+  --letter-spacing-ultra-wide: 0.35em;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Ambient noise & subtle glow gradients */
+.radial-glow {
+  background: radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.07) 0%, rgba(10, 10, 12, 0) 70%);
+}
+
+.radial-glow-cyan {
+  background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.08) 0%, rgba(10, 10, 12, 0) 65%);
+}
+
+.editorial-border {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.editorial-border:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(28, 30, 36, 0.65) 0%, rgba(17, 18, 21, 0.85) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 255, 255, 0.03);
+}
+
+/* Subtle cursor reflection effect */
+.interactive-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.interactive-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255, 255, 255, 0.07), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  border-radius: inherit;
+}
+
+.interactive-card:hover::after {
+  opacity: 1;
+}
+
+/* Hero Logo Box Breathing Shimmer & Halo */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 35px -5px rgba(255, 255, 255, 0.06), 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.09);
+  }
+  50% {
+    box-shadow: 0 0 60px 2px rgba(255, 255, 255, 0.15), 0 30px 60px -10px rgba(0, 0, 0, 0.95);
+    border-color: rgba(255, 255, 255, 0.24);
+  }
+}
+
+.logo-hero-frame {
+  animation: pulseGlow 6s ease-in-out infinite;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+}
+
+.logo-hero-frame:hover {
+  transform: translateY(-3px) scale(1.008);
+  box-shadow: 0 0 70px rgba(255, 255, 255, 0.2), 0 30px 60px -10px rgba(0, 0, 0, 0.9);
+}
+
+/* Keyframe Entrance Staggers */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-0 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+.animate-hero-1 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+.animate-hero-2 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
+.animate-hero-3 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both; }
+.animate-hero-4 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both; }
+.animate-hero-5 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both; }
+
+/* Scroll Reveal System */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Sleek Button Ripple & Magnetic Feeling */
+.luxury-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transition: left 0.75s ease;
+}
+
+.luxury-btn:hover::before {
+  left: 100%;
+}
+
+.luxury-btn:active {
+  transform: scale(0.97);
+}
+
+/* Checklist Item interactive state */
+.lab-check-item {
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lab-check-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(4px);
+}
+.lab-check-item.is-selected {
+  border-color: rgba(52, 211, 153, 0.45);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+/* Input Focus Glowing Ring */
+.luxury-input {
+  transition: all 0.25s ease;
+}
+.luxury-input:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.05);
+  outline: none;
+}
+
+/* Custom Radio Option Card Active */
+.service-option-card {
+  transition: all 0.25s ease;
+}
+.service-option-card.active-option {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.07);
+}
+
+/* Metric counter hover effect */
+.metric-card {
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.metric-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Custom modern dark scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #090a0d;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2029;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #323644;
+}
+
+/* Ambient glow pulses */
+@keyframes floatParticle {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-15px) translateX(8px);
+    opacity: 0.6;
+  }
+}
+
+.animate-float {
+  animation: floatParticle 8s ease-in-out infinite;
+}
+
+/* Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .logo-hero-frame {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Universal System | Tecnología Clara y Soporte de Precisión</title>
+<!-- Google Fonts: Cormorant Garamond / Playfair Display + Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&amp;family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              charcoal: '#0a0a0c',
+              dark: '#111215',
+              surface: '#17181c',
+              card: '#1c1e24',
+              border: 'rgba(255, 255, 255, 0.08)',
+              borderLight: 'rgba(255, 255, 255, 0.18)',
+              silver: '#d1d5db',
+              muted: '#8b8e99'
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Playfair Display', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          },
+          letterSpacing: {
+            widestPlus: '0.22em',
+            ultraWide: '0.35em'
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Luxury Motion & Micro-interactions Styles -->
+<style data-purpose="luxury-effects">
+    body {
+      background-color: #090a0d;
+      color: #f3f4f6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Ambient noise & subtle glow gradients */
+    .radial-glow {
+      background: radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.07) 0%, rgba(10, 10, 12, 0) 70%);
+    }
+
+    .editorial-border {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .editorial-border:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .glass-card {
+      background: linear-gradient(135deg, rgba(28, 30, 36, 0.65) 0%, rgba(17, 18, 21, 0.85) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.28);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 255, 255, 0.03);
+    }
+
+    /* Subtle cursor reflection effect */
+    .interactive-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .interactive-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255, 255, 255, 0.06), transparent 50%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      border-radius: inherit;
+    }
+
+    .interactive-card:hover::after {
+      opacity: 1;
+    }
+
+    /* Hero Logo Box Breathing Shimmer & Halo */
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow: 0 0 35px -5px rgba(255, 255, 255, 0.06), 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+        border-color: rgba(255, 255, 255, 0.09);
+      }
+      50% {
+        box-shadow: 0 0 60px 2px rgba(255, 255, 255, 0.14), 0 30px 60px -10px rgba(0, 0, 0, 0.95);
+        border-color: rgba(255, 255, 255, 0.22);
+      }
+    }
+
+    .logo-hero-frame {
+      animation: pulseGlow 6s ease-in-out infinite;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+    }
+
+    .logo-hero-frame:hover {
+      transform: translateY(-3px) scale(1.008);
+      box-shadow: 0 0 70px rgba(255, 255, 255, 0.18), 0 30px 60px -10px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Keyframe Entrance Staggers */
+    @keyframes heroFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-hero-0 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+    .animate-hero-1 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+    .animate-hero-2 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
+    .animate-hero-3 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both; }
+    .animate-hero-4 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both; }
+    .animate-hero-5 { animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both; }
+
+    /* Scroll Reveal System */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Sleek Button Ripple & Magnetic Feeling */
+    .luxury-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .luxury-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      transition: left 0.75s ease;
+    }
+
+    .luxury-btn:hover::before {
+      left: 100%;
+    }
+
+    .luxury-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Checklist Item interactive state */
+    .lab-check-item {
+      cursor: pointer;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .lab-check-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(4px);
+    }
+    .lab-check-item.is-selected {
+      border-color: rgba(52, 211, 153, 0.45);
+      background: rgba(16, 185, 129, 0.06);
+    }
+
+    /* Input Focus Glowing Ring */
+    .luxury-input {
+      transition: all 0.25s ease;
+    }
+    .luxury-input:focus {
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.05);
+      outline: none;
+    }
+
+    /* Custom Radio Option Card Active */
+    .service-option-card {
+      transition: all 0.25s ease;
+    }
+    .service-option-card.active-option {
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.07);
+    }
+
+    /* Metric counter hover effect */
+    .metric-card {
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .metric-card:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Accessibility: Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .logo-hero-frame {
+        animation: none !important;
+      }
+    }
+  </style>
+<!-- END: Luxury Motion & Micro-interactions Styles -->
+</head>
+<body class="selection:bg-white selection:text-black">
+<!-- BEGIN: MainHeader -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#090a0d]/85 backdrop-blur-md border-b border-brand-border transition-all duration-300" data-purpose="site-header" id="site-header">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<!-- Monogram and Brand Identity -->
+<a class="flex items-center space-x-3 group" href="#">
+<span class="font-serif text-2xl font-semibold tracking-wider text-white transition-all duration-300 group-hover:tracking-widest">US</span>
+<div class="h-4 w-px bg-white/20 transition-all duration-300 group-hover:h-5 group-hover:bg-white/40"></div>
+<span class="text-xs uppercase tracking-ultraWide text-white/90 font-medium transition-colors duration-300 group-hover:text-white">Universal System</span>
+</a>
+<!-- Desktop Navigation Links with subtle underline animation -->
+<nav class="hidden lg:flex items-center space-x-8 text-xs tracking-widestPlus uppercase text-brand-muted" data-purpose="desktop-nav">
+<a class="relative py-1 transition-colors hover:text-white group" href="#pilares">
+  Asesoría &amp; Paciencia
+  <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="relative py-1 transition-colors hover:text-white group" href="#pilares">
+  Clases Particulares
+  <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="relative py-1 transition-colors hover:text-white group" href="#pilares">
+  Soporte Técnico
+  <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="relative py-1 transition-colors hover:text-white group" href="#laboratorio">
+  Laboratorio
+  <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="relative py-1 transition-colors hover:text-white group" href="#metodologia">
+  Metodología
+  <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="relative py-1 transition-colors hover:text-white group" href="#testimonios">
+  Testimonios
+  <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full"></span>
+</a>
+</nav>
+<!-- Action Button -->
+<div class="flex items-center space-x-4">
+<a class="luxury-btn hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-xs uppercase tracking-widestPlus font-medium text-black bg-white hover:bg-neutral-200 transition-all duration-300 rounded-sm shadow-sm" href="#selector">
+          Agendar Consulta
+        </a>
+<a aria-label="Contacto WhatsApp" class="lg:hidden text-white/80 p-2 hover:text-white transition-transform active:scale-95" href="https://wa.me/#" rel="noopener noreferrer" target="_blank">
+<svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.54 1.761.815 2.796.815 3.182 0 5.769-2.587 5.769-5.768.001-3.18-2.586-5.766-5.769-5.766zm9.969 5.768c0 5.503-4.466 9.969-9.969 9.969-1.742 0-3.376-.448-4.81-1.233l-5.221 1.369 1.394-5.093c-.878-1.492-1.394-3.235-1.394-5.012 0-5.502 4.466-9.97 9.969-9.97 5.503 0 9.969 4.467 9.969 9.97z"></path></svg>
+</a>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<main>
+<!-- BEGIN: HeroSection -->
+<section class="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden radial-glow" data-purpose="hero-section">
+<div class="max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
+<!-- Luxury Brand Presentation Card with Breathing Shimmer & Corner Accents -->
+<div class="animate-hero-0 relative w-full max-w-2xl mx-auto mb-10 p-2 sm:p-3 rounded-md editorial-border bg-[#0d0e12]/80 backdrop-blur-md logo-hero-frame cursor-pointer group" id="hero-brand-card">
+<div class="overflow-hidden rounded border border-white/5 bg-black relative">
+<img alt="Universal System - Porque aprender nunca fue tan fácil" class="w-full h-auto object-cover opacity-95 group-hover:opacity-100 group-hover:scale-[1.01] transition-all duration-700 ease-out" height="768" src="https://lh3.googleusercontent.com/aida/AEtjO1UvtRlZJMzOkJSHAnqR6tfwzDU64eEYSf-e0DIwALZ7PswW0nAka-qUeW9YH0yoQjl1bA8yGR6zgvQf1vEqmhd68-uHbv7f4IZq46vUNp7GeYViPfw-8klWCtHKvikUCHfB32Qa5S8qTROdqKdC726iDmQ32BrW-filKqteMmyvduFnCoHOOxEQipFUm9BGTyRJEax3ZSgrcpFozzHVNCNdjJ4Qf2PUmlhG2VjfA20vHaEpizR4DCbZXSo" width="1376"/>
+<!-- Subtle ambient inner highlight sweep on hover -->
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/20 via-transparent to-white/[0.05] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+</div>
+<!-- Corner Accents for Editorial Aesthetic -->
+<span class="absolute -top-1 -left-1 w-2.5 h-2.5 border-t-2 border-l-2 border-white/40 transition-all duration-300 group-hover:border-white group-hover:w-3.5 group-hover:h-3.5"></span>
+<span class="absolute -top-1 -right-1 w-2.5 h-2.5 border-t-2 border-r-2 border-white/40 transition-all duration-300 group-hover:border-white group-hover:w-3.5 group-hover:h-3.5"></span>
+<span class="absolute -bottom-1 -left-1 w-2.5 h-2.5 border-b-2 border-l-2 border-white/40 transition-all duration-300 group-hover:border-white group-hover:w-3.5 group-hover:h-3.5"></span>
+<span class="absolute -bottom-1 -right-1 w-2.5 h-2.5 border-b-2 border-r-2 border-white/40 transition-all duration-300 group-hover:border-white group-hover:w-3.5 group-hover:h-3.5"></span>
+</div>
+<!-- Tagline Badge adhering strictly to prompt -->
+<div class="animate-hero-1 inline-flex items-center px-4 py-1.5 mb-8 rounded-full border border-white/10 bg-white/5 text-[11px] tracking-ultraWide uppercase text-white/80 font-medium hover:border-white/25 hover:bg-white/10 transition-colors duration-300 cursor-default">
+<span class="w-1.5 h-1.5 rounded-full bg-white/60 mr-2.5 animate-pulse"></span>
+  Porque aprender nunca fue tan fácil.
+</div>
+<!-- Refined Serif Headline -->
+<h1 class="animate-hero-2 font-serif text-3xl sm:text-5xl md:text-6xl text-white font-normal leading-[1.15] mb-6 tracking-tight max-w-4xl">
+  Tecnología clara, soporte de precisión y aprendizaje sin barreras.
+</h1>
+<!-- Subtitle -->
+<p class="animate-hero-3 text-base sm:text-lg text-brand-silver/80 font-light max-w-2xl leading-relaxed mb-10">
+  Acompañamiento tecnológico empático para adultos y familias, mentorías personalizadas de aprendizaje y laboratorio de soporte técnico de alta precisión.
+</p>
+<!-- CTA Buttons -->
+<div class="animate-hero-4 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+<a class="luxury-btn w-full sm:w-auto px-8 py-3.5 bg-white text-black text-xs font-semibold uppercase tracking-widestPlus rounded-sm hover:bg-neutral-200 transition-colors shadow-lg shadow-white/5 active:scale-95" href="#selector">
+  Agendar Diagnóstico o Clase
+</a>
+<a class="luxury-btn w-full sm:w-auto px-8 py-3.5 bg-transparent border border-white/20 text-white text-xs font-medium uppercase tracking-widestPlus rounded-sm hover:bg-white/5 hover:border-white/40 transition-all duration-300 active:scale-95" href="#pilares">
+  Explorar Servicios
+</a>
+</div>
+<!-- Quick Trust Metrics Bar -->
+<div class="animate-hero-5 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 pt-16 mt-16 border-t border-brand-border w-full text-left sm:text-center" data-purpose="trust-metrics">
+<div class="metric-card p-2 rounded transition-all">
+<div class="font-serif text-2xl sm:text-3xl text-white font-normal transition-transform duration-300 group-hover:scale-105">100%</div>
+<div class="text-[11px] uppercase tracking-widest text-brand-muted mt-1">Paciencia y Claridad</div>
+</div>
+<div class="metric-card p-2 rounded transition-all">
+<div class="font-serif text-2xl sm:text-3xl text-white font-normal transition-transform duration-300 group-hover:scale-105">&lt; 24h</div>
+<div class="text-[11px] uppercase tracking-widest text-brand-muted mt-1">Diagnóstico Hardware</div>
+</div>
+<div class="metric-card p-2 rounded transition-all">
+<div class="font-serif text-2xl sm:text-3xl text-white font-normal transition-transform duration-300 group-hover:scale-105">1 a 1</div>
+<div class="text-[11px] uppercase tracking-widest text-brand-muted mt-1">Metodología Personal</div>
+</div>
+<div class="metric-card p-2 rounded transition-all">
+<div class="font-serif text-2xl sm:text-3xl text-white font-normal transition-transform duration-300 group-hover:scale-105">+450</div>
+<div class="text-[11px] uppercase tracking-widest text-brand-muted mt-1">Personas Asesoradas</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: PillarsBentoGrid -->
+<section class="py-24 bg-[#0c0d10] border-t border-b border-brand-border relative" data-purpose="core-pillars" id="pilares">
+<div class="max-w-7xl mx-auto px-6 reveal-on-scroll">
+<div class="max-w-2xl mb-16">
+<span class="text-xs font-medium uppercase tracking-ultraWide text-white/60 block mb-2">Excelencia &amp; Soluciones</span>
+<h2 class="font-serif text-3xl sm:text-4xl text-white font-normal tracking-tight">Nuestros Tres Pilares de Atención</h2>
+<p class="text-brand-muted text-sm mt-3 font-light">Diseñados con rigor técnico y vocación pedagógica para resolver cualquier desafío digital de forma definitiva.</p>
+</div>
+<!-- Bento Grid Structure with Parallax Flashlight Sheen -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Pillar 01: Asesoría Humana -->
+<article class="glass-card interactive-card editorial-border rounded-md p-8 flex flex-col justify-between group">
+<div>
+<div class="flex items-center justify-between text-brand-muted mb-6">
+<span class="text-xs uppercase tracking-widest font-mono text-white/50 group-hover:text-white/80 transition-colors">Pilar 01</span>
+<span class="w-2 h-2 rounded-full bg-white/40 group-hover:bg-white group-hover:scale-125 transition-all duration-300"></span>
+</div>
+<h3 class="font-serif text-2xl text-white mb-3 font-normal group-hover:translate-x-0.5 transition-transform">Asesoría Tecnológica Humana</h3>
+<p class="text-sm text-brand-silver/80 leading-relaxed font-light mb-6">
+  Especialmente creada para adultos mayores, familias y profesionales con poco tiempo. Despejamos dudas con absoluta empatía y sin tecnicismos complejos.
+</p>
+<ul class="space-y-2.5 text-xs text-brand-muted border-t border-brand-border pt-6">
+<li class="flex items-center gap-2 group-hover:text-brand-silver transition-colors">
+<span class="text-white/60">✓</span> Home banking seguro y autenticación en dos pasos.
+</li>
+<li class="flex items-center gap-2 group-hover:text-brand-silver transition-colors">
+<span class="text-white/60">✓</span> Configuración integral de smartphones (Android &amp; iOS).
+</li>
+<li class="flex items-center gap-2 group-hover:text-brand-silver transition-colors">
+<span class="text-white/60">✓</span> Trámites digitales oficiales sin estrés ni bloqueos.
+</li>
+</ul>
+</div>
+<div class="pt-8">
+<a class="inline-flex items-center text-xs tracking-widest text-white uppercase font-semibold group-hover:translate-x-1.5 transition-all duration-300" href="#selector">
+  Solicitar Asesoría <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</article>
+<!-- Pillar 02: Clases de Nivelación -->
+<article class="glass-card interactive-card editorial-border rounded-md p-8 flex flex-col justify-between group">
+<div>
+<div class="flex items-center justify-between text-brand-muted mb-6">
+<span class="text-xs uppercase tracking-widest font-mono text-white/50 group-hover:text-white/80 transition-colors">Pilar 02</span>
+<span class="w-2 h-2 rounded-full bg-white/40 group-hover:bg-white group-hover:scale-125 transition-all duration-300"></span>
+</div>
+<h3 class="font-serif text-2xl text-white mb-3 font-normal group-hover:translate-x-0.5 transition-transform">Clases de Nivelación &amp; Productividad</h3>
+<p class="text-sm text-brand-silver/80 leading-relaxed font-light mb-6">
+  Mentorías 1 a 1 adaptadas a tu propio ritmo. Desarrolla independencia digital para el trabajo, los estudios o tus proyectos personales.
+</p>
+<ul class="space-y-2.5 text-xs text-brand-muted border-t border-brand-border pt-6">
+<li class="flex items-center gap-2 group-hover:text-brand-silver transition-colors">
+<span class="text-white/60">✓</span> Ofimática moderna: Excel, Google Sheets, documentos.
+</li>
+<li class="flex items-center gap-2 group-hover:text-brand-silver transition-colors">
+<span class="text-white/60">✓</span> Inteligencia Artificial aplicada al día a día y trabajo.
+</li>
+<li class="flex items-center gap-2 group-hover:text-brand-silver transition-colors">
+<span class="text-white/60">✓</span> Gestión de archivos en la nube y organización digital.
+</li>
+</ul>
+</div>
+<div class="pt-8">
+<a class="inline-flex items-center text-xs tracking-widest text-white uppercase font-semibold group-hover:translate-x-1.5 transition-all duration-300" href="#selector">
+  Ver Planes de Clase <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</article>
+<!-- Pillar 03: Soporte Técnico -->
+<article class="glass-card interactive-card editorial-border rounded-md p-8 flex flex-col justify-between group">
+<div>
+<div class="flex items-center justify-between text-brand-muted mb-6">
+<span class="text-xs uppercase tracking-widest font-mono text-white/50 group-hover:text-white/80 transition-colors">Pilar 03</span>
+<span class="w-2 h-2 rounded-full bg-white/40 group-hover:bg-white group-hover:scale-125 transition-all duration-300"></span>
+</div>
+<h3 class="font-serif text-2xl text-white mb-3 font-normal group-hover:translate-x-0.5 transition-transform">Soporte &amp; Laboratorio de Precisión</h3>
+<p class="text-sm text-brand-silver/80 leading-relaxed font-light mb-6">
+  Diagnóstico exhaustivo y reparación de computadoras portátiles y de escritorio. Privacidad garantizada y uso exclusivo de componentes certificados.
+</p>
+<ul class="space-y-2.5 text-xs text-brand-muted border-t border-brand-border pt-6">
+<li class="flex items-center gap-2 group-hover:text-brand-silver transition-colors">
+<span class="text-white/60">✓</span> Aceleración extrema mediante discos de estado sólido (SSD).
+</li>
+<li class="flex items-center gap-2 group-hover:text-brand-silver transition-colors">
+<span class="text-white/60">✓</span> Limpieza térmica profunda y cambio de pasta térmica.
+</li>
+<li class="flex items-center gap-2 group-hover:text-brand-silver transition-colors">
+<span class="text-white/60">✓</span> Respaldo seguro y recuperación de datos confidenciales.
+</li>
+</ul>
+</div>
+<div class="pt-8">
+<a class="inline-flex items-center text-xs tracking-widest text-white uppercase font-semibold group-hover:translate-x-1.5 transition-all duration-300" href="#selector">
+  Consultar Reparación <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- END: PillarsBentoGrid -->
+<!-- BEGIN: PrecisionLaboratory -->
+<section class="py-24 max-w-7xl mx-auto px-6 reveal-on-scroll" data-purpose="laboratory-standards" id="laboratorio">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-5">
+<span class="text-xs font-medium uppercase tracking-ultraWide text-white/60 block mb-2">Protocolos de Laboratorio</span>
+<h2 class="font-serif text-3xl sm:text-4xl text-white font-normal mb-6 leading-tight">
+  Cuidado riguroso de tus equipos e información privada.
+</h2>
+<p class="text-brand-silver/80 text-sm font-light leading-relaxed mb-8">
+  En Universal System entendemos que un ordenador no es solo una herramienta, sino el contenedor de tus recuerdos familiares, finanzas y trabajo cotidiano. Nuestro laboratorio opera bajo estándares de confidencialidad absoluta.
+</p>
+<div class="space-y-4">
+<div class="p-4 rounded border border-white/5 bg-brand-surface/50 hover:border-white/20 transition-all duration-300 hover:translate-x-1">
+<h4 class="text-xs uppercase tracking-wider font-semibold text-white mb-1">Garantía Escrita de 90 Días</h4>
+<p class="text-xs text-brand-muted leading-relaxed">Cualquier intervención de hardware incluye reporte técnico formal y cobertura integral ante cualquier eventualidad.</p>
+</div>
+<div class="p-4 rounded border border-white/5 bg-brand-surface/50 hover:border-white/20 transition-all duration-300 hover:translate-x-1">
+<h4 class="text-xs uppercase tracking-wider font-semibold text-white mb-1">No Manipulación de Datos Sensibles</h4>
+<p class="text-xs text-brand-muted leading-relaxed">Tu información jamás sale de tu equipo sin autorización expresa, manteniendo tu estricta privacidad resguardada.</p>
+</div>
+</div>
+</div>
+<!-- Diagnostic Spec Card with Interactive Items -->
+<div class="lg:col-span-7">
+<div class="editorial-border interactive-card rounded-lg bg-black/60 p-6 sm:p-8 backdrop-blur-md relative overflow-hidden">
+<div class="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
+<div class="flex items-center space-x-2">
+<span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block animate-pulse"></span>
+<span class="text-xs uppercase tracking-widest text-white/80 font-mono">Checklist de Calidad Universal System</span>
+</div>
+<span class="text-[10px] text-brand-muted font-mono uppercase tracking-widest">v3.4 Activo</span>
+</div>
+<!-- Inspection Metrics (Clickable/Toggleable micro-interaction) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono" id="checklist-grid">
+<div aria-pressed="false" class="lab-check-item p-3 border border-white/5 rounded bg-white/[0.02]" role="button" tabindex="0">
+<div class="flex justify-between items-center mb-1">
+<span class="text-brand-muted uppercase text-[10px]">01. Test de Estrés Térmico</span>
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+</div>
+<div class="text-white font-medium">Revisión de pasta térmica y flujo</div>
+<span class="text-emerald-400 text-[10px] mt-1 block">✓ Optimización de disipación</span>
+</div>
+<div aria-pressed="false" class="lab-check-item p-3 border border-white/5 rounded bg-white/[0.02]" role="button" tabindex="0">
+<div class="flex justify-between items-center mb-1">
+<span class="text-brand-muted uppercase text-[10px]">02. Integridad de Almacenamiento</span>
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+</div>
+<div class="text-white font-medium">Lectura S.M.A.R.T. &amp; Sectores SSD/HDD</div>
+<span class="text-emerald-400 text-[10px] mt-1 block">✓ Verificación 100% libre de fallas</span>
+</div>
+<div aria-pressed="false" class="lab-check-item p-3 border border-white/5 rounded bg-white/[0.02]" role="button" tabindex="0">
+<div class="flex justify-between items-center mb-1">
+<span class="text-brand-muted uppercase text-[10px]">03. Auditoría de Carga y Voltaje</span>
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+</div>
+<div class="text-white font-medium">Pruebas en rieles de alimentación</div>
+<span class="text-emerald-400 text-[10px] mt-1 block">✓ Protección contra picos eléctricos</span>
+</div>
+<div aria-pressed="false" class="lab-check-item p-3 border border-white/5 rounded bg-white/[0.02]" role="button" tabindex="0">
+<div class="flex justify-between items-center mb-1">
+<span class="text-brand-muted uppercase text-[10px]">04. Depuración de Software &amp; Malware</span>
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+</div>
+<div class="text-white font-medium">Eliminación de adware y bloatware</div>
+<span class="text-emerald-400 text-[10px] mt-1 block">✓ Inicio ultrarrápido y limpio</span>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-brand-muted">
+<span>¿Tu equipo funciona lento o se sobrecalienta?</span>
+<a class="mt-2 sm:mt-0 text-white font-medium underline uppercase tracking-widest text-[11px] hover:text-white/70 transition-colors" href="#selector">
+  Solicitar chequeo técnico
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: PrecisionLaboratory -->
+<!-- BEGIN: TransparentMethodology -->
+<section class="py-24 bg-[#0d0e12] border-t border-brand-border" data-purpose="step-by-step-method" id="metodologia">
+<div class="max-w-7xl mx-auto px-6 reveal-on-scroll">
+<div class="text-center max-w-2xl mx-auto mb-16">
+<span class="text-xs font-medium uppercase tracking-ultraWide text-white/60 block mb-2">Proceso Transparente</span>
+<h2 class="font-serif text-3xl sm:text-4xl text-white font-normal">Cómo Trabajamos Juntos</h2>
+<p class="text-brand-muted text-sm mt-3 font-light">Sin letras chicas ni sorpresas. Cada paso se planifica con absoluta anticipación.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<!-- Step 1 -->
+<div class="border-t border-white/20 pt-6 hover:border-white/60 transition-colors duration-300 group">
+<span class="font-mono text-xs text-white/40 block mb-2 group-hover:text-white transition-colors">Paso 01</span>
+<h3 class="font-serif text-xl text-white mb-2 group-hover:translate-x-1 transition-transform">Diagnóstico Inicial</h3>
+<p class="text-xs text-brand-silver/70 font-light leading-relaxed">
+  Escuchamos detalladamente tu caso o realizamos un análisis del equipo sin compromiso inicial apresurado.
+</p>
+</div>
+<!-- Step 2 -->
+<div class="border-t border-white/20 pt-6 hover:border-white/60 transition-colors duration-300 group">
+<span class="font-mono text-xs text-white/40 block mb-2 group-hover:text-white transition-colors">Paso 02</span>
+<h3 class="font-serif text-xl text-white mb-2 group-hover:translate-x-1 transition-transform">Plan a Medida</h3>
+<p class="text-xs text-brand-silver/70 font-light leading-relaxed">
+  Definimos los objetivos pedagógicos o la solución de soporte con presupuesto cerrado y tiempo estimado.
+</p>
+</div>
+<!-- Step 3 -->
+<div class="border-t border-white/20 pt-6 hover:border-white/60 transition-colors duration-300 group">
+<span class="font-mono text-xs text-white/40 block mb-2 group-hover:text-white transition-colors">Paso 03</span>
+<h3 class="font-serif text-xl text-white mb-2 group-hover:translate-x-1 transition-transform">Ejecución Guiada</h3>
+<p class="text-xs text-brand-silver/70 font-light leading-relaxed">
+  Ya sea en sesión 1 a 1 con paciencia total o en banco de trabajo técnico con piezas de alta durabilidad.
+</p>
+</div>
+<!-- Step 4 -->
+<div class="border-t border-white/20 pt-6 hover:border-white/60 transition-colors duration-300 group">
+<span class="font-mono text-xs text-white/40 block mb-2 group-hover:text-white transition-colors">Paso 04</span>
+<h3 class="font-serif text-xl text-white mb-2 group-hover:translate-x-1 transition-transform">Garantía Continua</h3>
+<p class="text-xs text-brand-silver/70 font-light leading-relaxed">
+  Seguimiento pos-atención para asegurarnos de que manejes tu herramienta o equipo con plena tranquilidad.
+</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: TransparentMethodology -->
+<!-- BEGIN: InteractiveSolutionSelector -->
+<section class="py-24 max-w-4xl mx-auto px-6 reveal-on-scroll" data-purpose="solution-selector" id="selector">
+<div class="editorial-border interactive-card rounded-xl bg-gradient-to-b from-[#181920] to-[#101114] p-8 sm:p-12 shadow-2xl">
+<div class="text-center mb-10">
+<span class="text-xs font-semibold uppercase tracking-ultraWide text-white/60 block mb-2">Atención Personalizada</span>
+<h2 class="font-serif text-3xl sm:text-4xl text-white font-normal mb-3">Encuentra Tu Solución Ideal</h2>
+<p class="text-xs sm:text-sm text-brand-muted max-w-lg mx-auto">Selecciona tu necesidad y nuestro equipo se contactará para coordinar la mejor alternativa.</p>
+</div>
+<form class="space-y-6" id="contact-form" onsubmit="event.preventDefault(); alert('Gracias por confiar en Universal System. Nos pondremos en contacto contigo a la brevedad.');">
+<!-- Category Selector -->
+<div>
+<label class="block text-xs uppercase tracking-widest text-brand-silver mb-3">1. ¿En qué área necesitas ayuda?</label>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="service-options-group">
+<label class="service-option-card flex items-center p-3.5 rounded border border-white/20 cursor-pointer bg-white/[0.04] active-option">
+<input checked="" class="text-black focus:ring-0 mr-3 accent-white" name="service" type="radio" value="asesoria"/>
+<span class="text-xs font-medium text-white">Asesoría / Paciencia</span>
+</label>
+<label class="service-option-card flex items-center p-3.5 rounded border border-white/10 hover:border-white/30 cursor-pointer bg-white/[0.02]">
+<input class="text-black focus:ring-0 mr-3 accent-white" name="service" type="radio" value="clases"/>
+<span class="text-xs font-medium text-white">Clases 1 a 1</span>
+</label>
+<label class="service-option-card flex items-center p-3.5 rounded border border-white/10 hover:border-white/30 cursor-pointer bg-white/[0.02]">
+<input class="text-black focus:ring-0 mr-3 accent-white" name="service" type="radio" value="soporte"/>
+<span class="text-xs font-medium text-white">Soporte Notebook/PC</span>
+</label>
+</div>
+</div>
+<!-- User Inputs -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-xs uppercase tracking-widest text-brand-silver mb-2" for="name">Tu Nombre Completo</label>
+<input class="luxury-input w-full bg-black/40 border border-white/10 rounded px-4 py-2.5 text-xs text-white placeholder-brand-muted/50 focus:border-white/50 focus:ring-0" id="name" placeholder="Ej: Marcela González" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs uppercase tracking-widest text-brand-silver mb-2" for="contact">WhatsApp o Teléfono</label>
+<input class="luxury-input w-full bg-black/40 border border-white/10 rounded px-4 py-2.5 text-xs text-white placeholder-brand-muted/50 focus:border-white/50 focus:ring-0" id="contact" placeholder="+54 9 11 0000 0000" required="" type="tel"/>
+</div>
+</div>
+<!-- Message -->
+<div>
+<label class="block text-xs uppercase tracking-widest text-brand-silver mb-2" for="detail">Describe brevemente qué necesitas resolver o aprender</label>
+<textarea class="luxury-input w-full bg-black/40 border border-white/10 rounded px-4 py-2.5 text-xs text-white placeholder-brand-muted/50 focus:border-white/50 focus:ring-0" id="detail" placeholder="Ej: Deseo aprender a usar el home banking con seguridad sin temor a cometer errores..." rows="3"></textarea>
+</div>
+<!-- Submit Button -->
+<div class="pt-2 text-center">
+<button class="luxury-btn w-full sm:w-auto px-10 py-3.5 bg-white text-black text-xs uppercase tracking-widestPlus font-semibold rounded hover:bg-neutral-200 transition-colors active:scale-95 shadow-lg shadow-white/5" type="submit">
+  Solicitar Asesoramiento Inmediato
+</button>
+<p class="text-[11px] text-brand-muted mt-3">Atención preferencial por orden de llegada. Sin ningún costo de consulta previa.</p>
+</div>
+</form>
+</div>
+</section>
+<!-- END: InteractiveSolutionSelector -->
+<!-- BEGIN: RealTestimonials -->
+<section class="py-24 bg-[#0a0b0d] border-t border-brand-border" data-purpose="customer-testimonials" id="testimonios">
+<div class="max-w-7xl mx-auto px-6 reveal-on-scroll">
+<div class="text-center max-w-xl mx-auto mb-16">
+<span class="text-xs font-medium uppercase tracking-ultraWide text-white/60 block mb-2">Historias Reales</span>
+<h2 class="font-serif text-3xl sm:text-4xl text-white font-normal">La Confianza de Aprender</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Testimonial 1 -->
+<div class="editorial-border interactive-card rounded p-6 bg-brand-surface/30 flex flex-col justify-between group hover:-translate-y-1.5 transition-all duration-300">
+<p class="font-serif italic text-base text-brand-silver leading-relaxed mb-6 group-hover:text-white transition-colors">
+  "Tenía pánico de operar en la computadora de mi banco y cometer una equivocación irreparable. Con paciencia infinita, en Universal System me enseñaron el paso a paso. Ahora lo hago sola en 5 minutos."
+</p>
+<div class="border-t border-white/10 pt-4">
+<div class="text-xs uppercase font-medium tracking-wider text-white">Elena S. (68 años)</div>
+<div class="text-[11px] text-brand-muted">Asesoría Tecnológica Personalizada</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="editorial-border interactive-card rounded p-6 bg-brand-surface/30 flex flex-col justify-between group hover:-translate-y-1.5 transition-all duration-300">
+<p class="font-serif italic text-base text-brand-silver leading-relaxed mb-6 group-hover:text-white transition-colors">
+  "Estaba muy trabado con Excel para mi nuevo puesto laboral y no entendía nada de fórmulas. Las clases 1 a 1 fueron precisas, prácticas y directas a lo que precisaba en mi trabajo."
+</p>
+<div class="border-t border-white/10 pt-4">
+<div class="text-xs uppercase font-medium tracking-wider text-white">Mateo D. (27 años)</div>
+<div class="text-[11px] text-brand-muted">Clases de Nivelación de Productividad</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="editorial-border interactive-card rounded p-6 bg-brand-surface/30 flex flex-col justify-between group hover:-translate-y-1.5 transition-all duration-300">
+<p class="font-serif italic text-base text-brand-silver leading-relaxed mb-6 group-hover:text-white transition-colors">
+  "Mi notebook tardaba 10 minutos en encender y calentaba como un horno antes de entregar mi tesis. Le colocaron un disco SSD y le hicieron mantenimiento: vuela. El trato y la seriedad fueron impecables."
+</p>
+<div class="border-t border-white/10 pt-4">
+<div class="text-xs uppercase font-medium tracking-wider text-white">Carla V. (34 años)</div>
+<div class="text-[11px] text-brand-muted">Soporte Técnico de Precisión</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: RealTestimonials -->
+</main>
+<!-- BEGIN: SiteFooter -->
+<footer class="bg-black text-white border-t border-brand-border py-16" data-purpose="site-footer">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-brand-border">
+<!-- Brand Info -->
+<div class="md:col-span-5">
+<div class="flex items-center space-x-3 mb-4">
+<span class="font-serif text-3xl font-semibold text-white">US</span>
+<div class="h-4 w-px bg-white/20"></div>
+<span class="text-xs uppercase tracking-ultraWide text-white/80 font-medium">Universal System</span>
+</div>
+<p class="text-xs uppercase tracking-ultraWide text-brand-muted font-mono mb-4">
+  PORQUE APRENDER NUNCA FUE TAN FÁCIL.
+</p>
+<p class="text-xs text-brand-muted font-light leading-relaxed max-w-sm">
+  Educación digital compasiva, optimización de sistemas informáticos y soporte de precisión para que la tecnología trabaje a tu favor.
+</p>
+</div>
+<!-- Quick Links -->
+<div class="md:col-span-3">
+<h5 class="text-xs uppercase tracking-widest text-white/50 mb-4 font-mono">Servicios Clave</h5>
+<ul class="space-y-2 text-xs text-brand-silver font-light">
+<li><a class="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200" href="#pilares">Acompañamiento a Adultos</a></li>
+<li><a class="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200" href="#pilares">Mentorías de Productividad &amp; Ofimática</a></li>
+<li><a class="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200" href="#pilares">Aceleración SSD &amp; Limpieza Térmica</a></li>
+<li><a class="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200" href="#pilares">Recuperación de Archivos y Seguridad</a></li>
+</ul>
+</div>
+<!-- Direct Contact Channels -->
+<div class="md:col-span-4">
+<h5 class="text-xs uppercase tracking-widest text-white/50 mb-4 font-mono">Canales de Atención</h5>
+<div class="space-y-3 text-xs text-brand-silver font-light">
+<div class="flex items-start gap-2">
+<span class="text-white">▪</span>
+<span><strong>WhatsApp Preferencial:</strong> Respuesta en menos de 1 hora hábil.</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="text-white">▪</span>
+<span><strong>Modalidad:</strong> Presencial en laboratorio y Asistencia Remota guiada.</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="text-white">▪</span>
+<span><strong>Atención:</strong> Lunes a Sábados con cita previa coordinada.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Copyright and Bottom Credits -->
+<div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-brand-muted font-light gap-4">
+<div>
+  © <span id="current-year">2026</span> Universal System. Todos los derechos reservados.
+</div>
+<div class="text-center sm:text-right text-[10px] uppercase tracking-ultraWide text-white/40 font-mono">
+  PORQUE APRENDER NUNCA FUE TAN FÁCIL.
+</div>
+</div>
+</div>
+</footer>
+<!-- END: SiteFooter -->
+<!-- BEGIN: InteractiveScripts -->
+<script data-purpose="motion-and-interactions">
+  document.getElementById('current-year').textContent = new Date().getFullYear();
+
+  // 1. Scroll-triggered reveal animations via IntersectionObserver
+  const revealElements = document.querySelectorAll('.reveal-on-scroll');
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  // 2. Mouse Parallax Flashlight Reflection on Interactive Cards
+  const interactiveCards = document.querySelectorAll('.interactive-card');
+  interactiveCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
+
+  // 3. Interactive Service Radio Selection Cards
+  const serviceCards = document.querySelectorAll('.service-option-card');
+  serviceCards.forEach(card => {
+    card.addEventListener('click', () => {
+      serviceCards.forEach(c => {
+        c.classList.remove('active-option');
+        c.classList.remove('border-white/20');
+        c.classList.remove('bg-white/[0.04]');
+        c.classList.add('border-white/10');
+        c.classList.add('bg-white/[0.02]');
+      });
+      card.classList.add('active-option');
+      card.classList.add('border-white/20');
+      card.classList.add('bg-white/[0.04]');
+      card.classList.remove('border-white/10');
+      card.classList.remove('bg-white/[0.02]');
+      const radio = card.querySelector('input[type="radio"]');
+      if (radio) radio.checked = true;
+    });
+  });
+
+  // 4. Lab Checklist Interactive Status Item Toggle
+  const labCheckItems = document.querySelectorAll('.lab-check-item');
+  labCheckItems.forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('is-selected');
+      const isPressed = item.getAttribute('aria-pressed') === 'true';
+      item.setAttribute('aria-pressed', !isPressed);
+    });
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        item.click();
+      }
+    });
+  });
+
+  // 5. Header backdrop transition on scroll
+  const siteHeader = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      siteHeader.classList.add('bg-[#090a0d]/95', 'shadow-md', 'shadow-black/50');
+    } else {
+      siteHeader.classList.remove('bg-[#090a0d]/95', 'shadow-md', 'shadow-black/50');
+    }
+  }, { passive: true });
+</script>
+<!-- END: InteractiveScripts -->
+</body></html>
