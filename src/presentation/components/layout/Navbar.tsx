@@ -4,10 +4,13 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { appConfig } from "@/infrastructure/config/env";
 import { WhatsAppIcon, Menu, X, ArrowRight } from "@/presentation/components/ui/Icons";
+import { useLanguage } from "@/presentation/context/LanguageContext";
+import { Button } from "@/presentation/components/ui/button";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,13 +22,13 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: "Asesoría & Paciencia", href: "#pilares" },
-    { label: "Clases Particulares", href: "#pilares" },
-    { label: "Soporte Técnico", href: "#pilares" },
-    { label: "Laboratorio", href: "#laboratorio" },
-    { label: "Metodología", href: "#metodologia" },
-    { label: "Empresas B2B", href: "#empresas" },
-    { label: "Testimonios", href: "#testimonios" },
+    { label: t("nav.advisory"), href: "#pilares" },
+    { label: t("nav.classes"), href: "#pilares" },
+    { label: t("nav.support"), href: "#pilares" },
+    { label: t("nav.lab"), href: "#laboratorio" },
+    { label: t("nav.methodology"), href: "#metodologia" },
+    { label: t("nav.enterprise"), href: "#empresas" },
+    { label: t("nav.testimonials"), href: "#testimonios" },
   ];
 
   return (
@@ -39,7 +42,7 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Monogram and Brand Identity */}
-        <Link href="#" className="flex items-center space-x-3 group">
+        <Link href="#" className="flex items-center space-x-3 group" aria-label="Universal System Inicio">
           <span className="font-serif text-2xl font-semibold tracking-wider text-white transition-all duration-300 group-hover:tracking-widest">
             {appConfig.brand.shortName}
           </span>
@@ -51,8 +54,9 @@ export function Navbar() {
 
         {/* Desktop Navigation Links with subtle underline animation */}
         <nav
-          className="hidden lg:flex items-center space-x-8 text-xs tracking-[0.22em] uppercase text-[#8b8e99]"
+          className="hidden xl:flex items-center space-x-7 text-[11px] tracking-[0.22em] uppercase text-[#8b8e99]"
           data-purpose="desktop-nav"
+          aria-label="Navegación principal"
         >
           {navLinks.map((link, idx) => (
             <a
@@ -66,34 +70,48 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Action Button & Contact WhatsApp */}
-        <div className="flex items-center space-x-3 sm:space-x-4">
+        {/* Action Button, Language Toggle & Contact WhatsApp */}
+        <div className="flex items-center space-x-2.5 sm:space-x-3">
+          {/* Language Switcher Button */}
+          <button
+            onClick={toggleLanguage}
+            type="button"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-sm border border-white/10 bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white text-xs font-mono transition-all duration-200"
+            title={t("nav.langSwitch")}
+            aria-label={t("nav.langSwitch")}
+          >
+            <span className={language === "es" ? "text-white font-bold" : "text-neutral-500"}>ES</span>
+            <span className="text-neutral-600">/</span>
+            <span className={language === "en" ? "text-white font-bold" : "text-neutral-500"}>EN</span>
+          </button>
+
           <a
             href={appConfig.author.whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Contacto directo por WhatsApp"
-            className="flex items-center gap-1.5 px-3 py-2 rounded-sm border border-emerald-500/30 bg-emerald-950/20 text-emerald-400 hover:bg-emerald-900/30 hover:border-emerald-400 text-xs font-mono transition-all duration-300"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm border border-emerald-500/30 bg-emerald-950/20 text-emerald-400 hover:bg-emerald-900/30 hover:border-emerald-400 text-xs font-mono transition-all duration-300"
             title={`Contactar a ${appConfig.author.name} por WhatsApp`}
           >
-            <WhatsAppIcon className="w-4 h-4 text-emerald-400" />
+            <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-400" />
             <span className="hidden md:inline text-[11px] font-medium tracking-wider">
-              WhatsApp Directo
+              {t("nav.whatsapp")}
             </span>
           </a>
 
           <a
             href="#selector"
-            className="luxury-btn hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-xs uppercase tracking-[0.22em] font-medium text-black bg-white hover:bg-neutral-200 transition-all duration-300 rounded-sm shadow-sm"
+            className="luxury-btn hidden sm:inline-flex items-center justify-center px-4 py-2 text-xs uppercase tracking-[0.22em] font-medium text-black bg-white hover:bg-neutral-200 transition-all duration-300 rounded-sm shadow-sm"
           >
-            Agendar Consulta
+            {t("nav.cta")}
           </a>
 
           {/* Mobile hamburger menu toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-white/80 hover:text-white transition-colors"
-            aria-label="Abrir menú"
+            className="xl:hidden p-2 text-white/80 hover:text-white transition-colors"
+            aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -102,8 +120,8 @@ export function Navbar() {
 
       {/* Mobile navigation drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#090a0d]/98 border-b border-white/10 px-6 py-6 animate-hero-0">
-          <nav className="flex flex-col space-y-4">
+        <div className="xl:hidden bg-[#090a0d]/98 border-b border-white/10 px-6 py-6 animate-hero-0">
+          <nav className="flex flex-col space-y-4" aria-label="Navegación móvil">
             {navLinks.map((link, idx) => (
               <a
                 key={idx}
@@ -121,7 +139,7 @@ export function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="luxury-btn w-full py-3 text-center text-xs uppercase tracking-[0.22em] font-semibold text-black bg-white rounded-sm"
               >
-                Agendar Consulta
+                {t("nav.cta")}
               </a>
               <a
                 href={appConfig.author.whatsappLink}

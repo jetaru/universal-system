@@ -1,9 +1,11 @@
 "use client";
 
 import React from "react";
-import { testimonials } from "@/data/site-content";
+import { useLanguage } from "@/presentation/context/LanguageContext";
 
 export function TestimonialsSection() {
+  const { content, t } = useLanguage();
+
   return (
     <section
       id="testimonios"
@@ -13,15 +15,18 @@ export function TestimonialsSection() {
       <div className="max-w-7xl mx-auto px-6 reveal-on-scroll">
         <div className="text-center max-w-xl mx-auto mb-16">
           <span className="text-xs font-medium uppercase tracking-[0.35em] text-white/60 block mb-2 font-mono">
-            Historias Reales
+            {t("testimonials.tag")}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal">
-            La Confianza de Aprender
+            {t("testimonials.title")}
           </h2>
+          <p className="text-[#8b8e99] text-sm mt-3 font-light">
+            {t("testimonials.desc")}
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((test) => (
+          {content.testimonials.map((test) => (
             <div
               key={test.id}
               className="editorial-border interactive-card rounded p-6 bg-[#17181c]/30 flex flex-col justify-between group hover:-translate-y-1.5 transition-all duration-300"

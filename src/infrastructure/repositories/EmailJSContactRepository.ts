@@ -28,20 +28,23 @@ export type EmailJSSenderFn = (
  */
 export class EmailJSContactRepository implements IContactRepository {
   private readonly senderFn: EmailJSSenderFn;
+  private readonly retryDelayMs: number;
 
   /**
    * @param customSenderFn Función opcional para despachar correos (útil para tests unitarios).
+   * @param retryDelayMs Retardo en milisegundos para el reintento automático (backoff).
    */
-  constructor(customSenderFn?: EmailJSSenderFn) {
+  constructor(customSenderFn?: EmailJSSenderFn, retryDelayMs: number = 500) {
     this.senderFn =
       customSenderFn ||
       (async (serviceId, templateId, templateParams, options) => {
         return emailjs.send(serviceId, templateId, templateParams, options);
       });
+    this.retryDelayMs = retryDelayMs;
   }
 
   /**
-   * Procesa el mensaje de contacto y lo envía a través de la API de EmailJS.
+   * Procesa el mensaje de contacto y lo envía a través de la API de EmailJS con reintento automático.
    *
    * @param message Datos del formulario validados y sanitizados.
    * @returns Resultado del procesamiento con estado, ticket y canales de contacto directo.
@@ -105,38 +108,48 @@ export class EmailJSContactRepository implements IContactRepository {
 
     const { publicKey, serviceId, templateId } = appConfig.emailjs;
 
-    try {
-      // 6. Despacho a través de EmailJS
-      await this.senderFn(serviceId, templateId, templateParams, { publicKey });
+    // 6. Despacho con reintento automático (1 reintento con backoff)
+    const maxAttempts = 2;
+    let lastError: unknown = null;
 
-      return {
-        success: true,
-        message:
-          "¡Tu solicitud ha sido enviada directamente por correo a nuestro equipo! Te contactaremos a la brevedad.",
-        ticketId,
-        whatsappUrl,
-        mailtoUrl,
-        timestamp,
-        deliveryMethod: "emailjs",
-      };
-    } catch (err: unknown) {
-      // En caso de que EmailJS falle (ej: servicio aún no configurado o caída de red),
-      // se activa la contingencia para que el usuario no pierda su solicitud.
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      console.warn(
-        `[EmailJSContactRepository] Falló el despacho de EmailJS (${errorMessage}). Activando canales de contingencia.`
-      );
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        await this.senderFn(serviceId, templateId, templateParams, { publicKey });
 
-      return {
-        success: true,
-        message:
-          "Tu solicitud y número de ticket han sido generados. Puedes acelerar tu atención haciendo clic en el botón de WhatsApp o Email.",
-        ticketId,
-        whatsappUrl,
-        mailtoUrl,
-        timestamp,
-        deliveryMethod: "fallback_mailto",
-      };
+        return {
+          success: true,
+          message:
+            "¡Tu solicitud ha sido enviada directamente por correo a nuestro equipo! Te contactaremos a la brevedad.",
+          ticketId,
+          whatsappUrl,
+          mailtoUrl,
+          timestamp,
+          deliveryMethod: "emailjs",
+        };
+      } catch (err: unknown) {
+        lastError = err;
+        if (attempt < maxAttempts && this.retryDelayMs > 0) {
+          await new Promise((resolve) => setTimeout(resolve, this.retryDelayMs));
+        }
+      }
     }
+
+    // 7. En caso de agotar reintentos (ej: servicio sin configurar o corte de red),
+    // se activa la contingencia para que el usuario no pierda su solicitud.
+    const errorMessage = lastError instanceof Error ? lastError.message : String(lastError);
+    console.warn(
+      `[EmailJSContactRepository] Falló el despacho de EmailJS tras reintento (${errorMessage}). Activando canales de contingencia.`
+    );
+
+    return {
+      success: true,
+      message:
+        "Tu solicitud y número de ticket han sido generados. Puedes acelerar tu atención haciendo clic en el botón de WhatsApp o Email.",
+      ticketId,
+      whatsappUrl,
+      mailtoUrl,
+      timestamp,
+      deliveryMethod: "fallback_mailto",
+    };
   }
 }

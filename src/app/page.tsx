@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Navbar } from "@/presentation/components/layout/Navbar";
 import { Footer } from "@/presentation/components/layout/Footer";
@@ -10,18 +8,16 @@ import { MethodologySection } from "@/presentation/components/sections/Methodolo
 import { EnterpriseSection } from "@/presentation/components/sections/EnterpriseSection";
 import { SolutionSelectorSection } from "@/presentation/components/sections/SolutionSelectorSection";
 import { TestimonialsSection } from "@/presentation/components/sections/TestimonialsSection";
-import { useScrollReveal } from "@/presentation/hooks/useScrollReveal";
-import { useInteractiveCard } from "@/presentation/hooks/useInteractiveCard";
+import { ClientPageEffects } from "@/presentation/components/effects/ClientPageEffects";
 
 export default function HomePage() {
-  // Activate interactive animations
-  useScrollReveal();
-  useInteractiveCard();
-
   return (
     <div className="min-h-screen bg-[#090a0d] text-[#f3f4f6] selection:bg-white selection:text-black">
+      {/* Client-side animations, cursor tracking and scroll-reveal observer */}
+      <ClientPageEffects />
+
       <Navbar />
-      <main>
+      <main id="main-content">
         <HeroSection />
         <PillarsSection />
         <LaboratorySection />

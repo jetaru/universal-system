@@ -3,9 +3,12 @@
 import React from "react";
 import { appConfig } from "@/infrastructure/config/env";
 import { ExternalLink, Terminal } from "@/presentation/components/ui/Icons";
+import { useLanguage } from "@/presentation/context/LanguageContext";
 
 export function EnterpriseSection() {
+  const { t, language } = useLanguage();
   const enterpriseUrl = appConfig.author.enterpriseUrl || "https://jetaru.github.io";
+  const isEs = language === "es";
 
   const enterpriseBadges = [
     "Clean Architecture & DDD",
@@ -29,16 +32,27 @@ export function EnterpriseSection() {
           <div className="max-w-2xl space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/50 border border-cyan-800/40 text-[11px] font-mono text-cyan-300">
               <Terminal className="w-3.5 h-3.5" />
-              <span>Soluciones B2B &amp; Consultoría Corporativa</span>
+              <span>{t("enterprise.tag")}</span>
             </div>
 
             <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal tracking-tight">
-              ¿Requieres Arquitectura de Software o Desarrollo para Empresas?
+              {isEs
+                ? "¿Requieres Arquitectura de Software o Desarrollo para Empresas?"
+                : "Need Enterprise Software Architecture or Custom Engineering?"}
             </h3>
 
             <p className="text-xs sm:text-sm text-[#d1d5db]/80 font-light leading-relaxed">
-              Para modernización de sistemas legacy, microservicios de alto tráfico, integraciones SAP HANA, aplicaciones móviles nativas y estándares de ciberseguridad OWASP, conoce el portafolio de ingeniería senior de{" "}
-              <strong className="text-white font-medium">{appConfig.author.name}</strong>.
+              {isEs ? (
+                <>
+                  Para modernización de sistemas legacy, microservicios de alto tráfico, integraciones SAP HANA, aplicaciones móviles nativas y estándares de ciberseguridad OWASP, conoce el portafolio de ingeniería senior de{" "}
+                  <strong className="text-white font-medium">{appConfig.author.name}</strong>.
+                </>
+              ) : (
+                <>
+                  For legacy systems modernization, high-throughput microservices, SAP HANA integrations, native mobile applications, and OWASP cybersecurity standards, explore the senior engineering portfolio of{" "}
+                  <strong className="text-white font-medium">{appConfig.author.name}</strong>.
+                </>
+              )}
             </p>
 
             {/* Capability tags */}
@@ -62,11 +76,13 @@ export function EnterpriseSection() {
               rel="noopener noreferrer"
               className="luxury-btn w-full sm:w-auto px-6 py-3 rounded-sm bg-white text-black font-semibold text-xs tracking-wider uppercase transition-all shadow-lg shadow-white/5 flex items-center justify-center gap-2.5 group"
             >
-              <span>Ir a jetaru.github.io</span>
+              <span>{isEs ? "Ir a jetaru.github.io" : "Explore jetaru.github.io"}</span>
               <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <span className="text-[11px] text-[#8b8e99] font-mono">
-              Portafolio de Ingeniería Senior &amp; Sistemas
+              {isEs
+                ? "Portafolio de Ingeniería Senior & Sistemas"
+                : "Senior Engineering & Systems Architecture"}
             </span>
           </div>
         </div>

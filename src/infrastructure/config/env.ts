@@ -39,5 +39,8 @@ export const appConfig = {
     templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "template_us",
   },
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
+  api: {
+    baseUrl: process.env.NEXT_PUBLIC_API_URL || "",
+  },
   isProduction: process.env.NODE_ENV === "production",
 };

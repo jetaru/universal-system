@@ -1,9 +1,11 @@
 "use client";
 
 import React from "react";
-import { servicePillars } from "@/data/site-content";
+import { useLanguage } from "@/presentation/context/LanguageContext";
 
 export function PillarsSection() {
+  const { content, t } = useLanguage();
+
   return (
     <section
       id="pilares"
@@ -13,19 +15,19 @@ export function PillarsSection() {
       <div className="max-w-7xl mx-auto px-6 reveal-on-scroll">
         <div className="max-w-2xl mb-16">
           <span className="text-xs font-medium uppercase tracking-[0.35em] text-white/60 block mb-2 font-mono">
-            Excelencia &amp; Soluciones
+            {t("pillars.tag")}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal tracking-tight">
-            Nuestros Tres Pilares de Atención
+            {t("pillars.title")}
           </h2>
           <p className="text-[#8b8e99] text-sm mt-3 font-light leading-relaxed">
-            Diseñados con rigor técnico y vocación pedagógica para resolver cualquier desafío digital de forma definitiva.
+            {t("pillars.desc")}
           </p>
         </div>
 
         {/* Bento Grid Structure with Parallax Flashlight Sheen */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {servicePillars.map((pillar) => (
+          {content.servicePillars.map((pillar) => (
             <article
               key={pillar.id}
               className="glass-card interactive-card editorial-border rounded-md p-8 flex flex-col justify-between group"
@@ -33,7 +35,7 @@ export function PillarsSection() {
               <div>
                 <div className="flex items-center justify-between text-[#8b8e99] mb-6">
                   <span className="text-xs uppercase tracking-widest font-mono text-white/50 group-hover:text-white/80 transition-colors">
-                    Pilar {pillar.number}
+                    {t("pillars.itemPrefix")} {pillar.number}
                   </span>
                   <span className="w-2 h-2 rounded-full bg-white/40 group-hover:bg-white group-hover:scale-125 transition-all duration-300"></span>
                 </div>

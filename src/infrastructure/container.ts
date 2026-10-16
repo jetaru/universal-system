@@ -1,6 +1,9 @@
 import { EmailJSContactRepository } from "./repositories/EmailJSContactRepository";
 import { MockContactRepository } from "./repositories/MockContactRepository";
+import { HttpServerRepository } from "./repositories/HttpServerRepository";
+import { MockServerRepository } from "./repositories/MockServerRepository";
 import { SendContactUseCase } from "@/core/usecases/send-contact.usecase";
+import { CheckServerStatusUseCase } from "@/core/usecases/check-server.usecase";
 
 /**
  * Contenedor de Inyección de Dependencias (IoC / Dependency Injection)
@@ -12,6 +15,10 @@ const contactRepository = new EmailJSContactRepository();
 const mockContactRepository = new MockContactRepository();
 const sendContactUseCase = new SendContactUseCase(contactRepository);
 
+const serverRepository = new HttpServerRepository();
+const mockServerRepository = new MockServerRepository();
+const checkServerStatusUseCase = new CheckServerStatusUseCase(serverRepository);
+
 export const container = {
   /** Repositorio principal configurado con EmailJS */
   contactRepository,
@@ -19,5 +26,11 @@ export const container = {
   mockContactRepository,
   /** Caso de uso de envío de contacto con validaciones de seguridad OWASP */
   sendContactUseCase,
+  /** Repositorio para verificación de estado del servidor */
+  serverRepository,
+  /** Repositorio mock de servidor para pruebas */
+  mockServerRepository,
+  /** Caso de uso para verificar estado y latencia de infraestructura */
+  checkServerStatusUseCase,
 };
 

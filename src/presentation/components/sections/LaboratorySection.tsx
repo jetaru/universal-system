@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { labChecklist } from "@/data/site-content";
 import { ShieldCheck, Cpu } from "@/presentation/components/ui/Icons";
+import { useLanguage } from "@/presentation/context/LanguageContext";
 
 export function LaboratorySection() {
+  const { content, t, language } = useLanguage();
   const [selectedChecks, setSelectedChecks] = useState<Record<string, boolean>>({
     "check-1": true,
     "check-2": true,
@@ -19,6 +20,8 @@ export function LaboratorySection() {
     }));
   };
 
+  const isEs = language === "es";
+
   return (
     <section
       id="laboratorio"
@@ -29,13 +32,17 @@ export function LaboratorySection() {
         {/* Left Column: Protocols & Guarantees */}
         <div className="lg:col-span-5">
           <span className="text-xs font-medium uppercase tracking-[0.35em] text-white/60 block mb-2 font-mono">
-            Protocolos de Laboratorio
+            {t("lab.tag")}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal mb-6 leading-tight">
-            Cuidado riguroso de tus equipos e información privada.
+            {isEs
+              ? "Cuidado riguroso de tus equipos e información privada."
+              : "Rigorous care for your hardware and private information."}
           </h2>
           <p className="text-[#d1d5db]/80 text-sm font-light leading-relaxed mb-8">
-            En Universal System entendemos que un ordenador no es solo una herramienta, sino el contenedor de tus recuerdos familiares, finanzas y trabajo cotidiano. Nuestro laboratorio opera bajo estándares de confidencialidad absoluta.
+            {isEs
+              ? "En Universal System entendemos que un ordenador no es solo una herramienta, sino el contenedor de tus recuerdos familiares, finanzas y trabajo cotidiano. Nuestro laboratorio opera bajo estándares de confidencialidad absoluta."
+              : "At Universal System we understand that a computer is not merely a tool, but the keeper of your family memories, personal finances, and daily livelihood. Our laboratory operates under strict non-disclosure and privacy protocols."}
           </p>
 
           <div className="space-y-4">
@@ -43,11 +50,13 @@ export function LaboratorySection() {
               <div className="flex items-center gap-2 mb-1">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <h4 className="text-xs uppercase tracking-wider font-semibold text-white">
-                  Garantía Escrita de 90 Días
+                  {isEs ? "Garantía Escrita de 90 Días" : "90-Day Written Warranty"}
                 </h4>
               </div>
               <p className="text-xs text-[#8b8e99] leading-relaxed">
-                Cualquier intervención de hardware incluye reporte técnico formal y cobertura integral ante cualquier eventualidad.
+                {isEs
+                  ? "Cualquier intervención de hardware incluye reporte técnico formal y cobertura integral ante cualquier eventualidad."
+                  : "Every hardware service includes a formal diagnostic report and comprehensive warranty coverage."}
               </p>
             </div>
 
@@ -55,11 +64,13 @@ export function LaboratorySection() {
               <div className="flex items-center gap-2 mb-1">
                 <Cpu className="w-4 h-4 text-cyan-400" />
                 <h4 className="text-xs uppercase tracking-wider font-semibold text-white">
-                  No Manipulación de Datos Sensibles
+                  {isEs ? "No Manipulación de Datos Sensibles" : "Zero Tampering with Sensitive Data"}
                 </h4>
               </div>
               <p className="text-xs text-[#8b8e99] leading-relaxed">
-                Tu información jamás sale de tu equipo sin autorización expresa, manteniendo tu estricta privacidad resguardada.
+                {isEs
+                  ? "Tu información jamás sale de tu equipo sin autorización expresa, manteniendo tu estricta privacidad resguardada."
+                  : "Your files never leave your system without explicit written consent, guaranteeing absolute data confidentiality."}
               </p>
             </div>
           </div>
@@ -72,17 +83,17 @@ export function LaboratorySection() {
               <div className="flex items-center space-x-2">
                 <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block animate-pulse"></span>
                 <span className="text-xs uppercase tracking-widest text-white/80 font-mono">
-                  Checklist de Calidad Universal System
+                  {isEs ? "Checklist de Calidad Universal System" : "Universal System Quality Checklist"}
                 </span>
               </div>
               <span className="text-[10px] text-[#8b8e99] font-mono uppercase tracking-widest">
-                v3.4 Activo
+                v3.4 {isEs ? "Activo" : "Active"}
               </span>
             </div>
 
             {/* Inspection Metrics Grid (Interactive click toggle) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono" id="checklist-grid">
-              {labChecklist.map((item) => {
+              {content.labChecklist.map((item) => {
                 const isChecked = !!selectedChecks[item.id];
                 return (
                   <div
@@ -97,7 +108,7 @@ export function LaboratorySection() {
                         toggleCheck(item.id);
                       }
                     }}
-                    className={`lab-check-item p-3 border rounded transition-all select-none ${
+                    className={`lab-check-item p-3 border rounded transition-all select-none cursor-pointer ${
                       isChecked
                         ? "is-selected border-emerald-500/40 bg-emerald-950/20 shadow-sm shadow-emerald-500/5"
                         : "border-white/5 bg-white/[0.02]"
@@ -127,12 +138,16 @@ export function LaboratorySection() {
             </div>
 
             <div className="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8b8e99]">
-              <span>¿Tu equipo funciona lento o se sobrecalienta?</span>
+              <span>
+                {isEs
+                  ? "¿Tu equipo funciona lento o se sobrecalienta?"
+                  : "Is your computer running slow or overheating?"}
+              </span>
               <a
                 className="mt-2 sm:mt-0 text-white font-medium underline uppercase tracking-widest text-[11px] hover:text-white/70 transition-colors"
                 href="#selector"
               >
-                Solicitar chequeo técnico
+                {isEs ? "Solicitar chequeo técnico" : "Request technical checkup"}
               </a>
             </div>
           </div>

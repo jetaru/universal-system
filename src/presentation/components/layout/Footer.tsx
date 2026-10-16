@@ -11,9 +11,12 @@ import {
   Clock,
   ShieldCheck,
 } from "@/presentation/components/ui/Icons";
+import { useLanguage } from "@/presentation/context/LanguageContext";
+import { PlatformStatusBadge } from "@/presentation/components/ui/PlatformStatusBadge";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer
@@ -34,13 +37,13 @@ export function Footer() {
               </span>
             </div>
             <p className="text-xs uppercase tracking-[0.35em] text-[#8b8e99] font-mono mb-4">
-              {appConfig.brand.tagline}
+              {t("hero.tagline")}
             </p>
             <p className="text-xs text-[#8b8e99] font-light leading-relaxed max-w-sm mb-6">
-              {appConfig.brand.description}
+              {t("hero.subtitle")}
             </p>
 
-            <div className="pt-2 text-xs text-neutral-400 font-mono flex flex-col gap-1.5">
+            <div className="pt-2 text-xs text-neutral-400 font-mono flex flex-col gap-2">
               <div className="flex items-center gap-2 text-white/70">
                 <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>{appConfig.author.specialty}</span>
@@ -49,13 +52,16 @@ export function Footer() {
                 <MapPin className="w-3.5 h-3.5 text-neutral-500 shrink-0" />
                 <span>{appConfig.author.location}</span>
               </div>
+              <div className="pt-2">
+                <PlatformStatusBadge />
+              </div>
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="md:col-span-3">
             <h5 className="text-xs uppercase tracking-widest text-white/50 mb-4 font-mono">
-              Servicios Clave
+              {t("footer.keyServices")}
             </h5>
             <ul className="space-y-2 text-xs text-[#d1d5db] font-light">
               <li>
@@ -63,7 +69,7 @@ export function Footer() {
                   className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200"
                   href="#pilares"
                 >
-                  Acompañamiento a Adultos
+                  {t("nav.advisory")}
                 </a>
               </li>
               <li>
@@ -71,7 +77,7 @@ export function Footer() {
                   className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200"
                   href="#pilares"
                 >
-                  Mentorías de Productividad &amp; Ofimática
+                  {t("nav.classes")}
                 </a>
               </li>
               <li>
@@ -79,15 +85,7 @@ export function Footer() {
                   className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200"
                   href="#laboratorio"
                 >
-                  Aceleración SSD &amp; Limpieza Térmica
-                </a>
-              </li>
-              <li>
-                <a
-                  className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200"
-                  href="#laboratorio"
-                >
-                  Recuperación de Archivos y Seguridad
+                  {t("lab.title")}
                 </a>
               </li>
               <li>
@@ -95,7 +93,7 @@ export function Footer() {
                   className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200"
                   href="#metodologia"
                 >
-                  Protocolos &amp; Metodología Transparente
+                  {t("methodology.title")}
                 </a>
               </li>
               <li>
@@ -105,7 +103,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span>Soluciones Corporativas &amp; B2B (jetaru)</span>
+                  <span>{t("enterprise.title")} (jetaru)</span>
                   <span>↗</span>
                 </a>
               </li>
@@ -115,13 +113,13 @@ export function Footer() {
           {/* Direct Contact Channels */}
           <div className="md:col-span-4">
             <h5 className="text-xs uppercase tracking-widest text-white/50 mb-4 font-mono">
-              Canales de Atención Directa
+              {t("footer.directChannels")}
             </h5>
             <div className="space-y-3.5 text-xs text-[#d1d5db] font-light">
               <div className="flex items-start gap-2.5">
                 <WhatsAppIcon className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-white font-medium block">WhatsApp Preferencial:</span>
+                  <span className="text-white font-medium block">{t("footer.whatsappPref")}</span>
                   <a
                     href={appConfig.author.whatsappLink}
                     target="_blank"
@@ -131,7 +129,7 @@ export function Footer() {
                     {appConfig.author.phoneDisplay}
                   </a>
                   <span className="block text-[11px] text-neutral-400">
-                    Respuesta en menos de 1 hora hábil.
+                    {t("footer.whatsappResponse")}
                   </span>
                 </div>
               </div>
@@ -139,7 +137,7 @@ export function Footer() {
               <div className="flex items-start gap-2.5">
                 <Mail className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-white font-medium block">Correo Electrónico:</span>
+                  <span className="text-white font-medium block">{t("footer.emailLabel")}</span>
                   <a
                     href={`mailto:${appConfig.author.email}`}
                     className="text-neutral-300 hover:text-white font-mono text-xs hover:underline"
@@ -152,7 +150,7 @@ export function Footer() {
               <div className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 text-neutral-400 shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-white font-medium block">Atención:</span>
+                  <span className="text-white font-medium block">{t("footer.hoursLabel")}</span>
                   <span className="text-neutral-400">{appConfig.author.availability}.</span>
                 </div>
               </div>
@@ -164,6 +162,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-1.5 rounded-sm bg-[#17181c] border border-white/10 hover:border-white/30 text-xs text-neutral-300 hover:text-white transition-all flex items-center gap-2"
+                  aria-label="Perfil de GitHub de Jorge Thompson"
                 >
                   <GithubIcon className="w-3.5 h-3.5" />
                   <span className="font-mono text-[11px]">GitHub</span>
@@ -173,6 +172,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-1.5 rounded-sm bg-[#17181c] border border-white/10 hover:border-white/30 text-xs text-neutral-300 hover:text-white transition-all flex items-center gap-2"
+                  aria-label="Perfil de LinkedIn de Jorge Thompson"
                 >
                   <LinkedinIcon className="w-3.5 h-3.5" />
                   <span className="font-mono text-[11px]">LinkedIn</span>
@@ -185,13 +185,13 @@ export function Footer() {
         {/* Copyright and Bottom Credits */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#8b8e99] font-light gap-4">
           <div>
-            © {currentYear} {appConfig.brand.name}. Todos los derechos reservados.
+            © {currentYear} {appConfig.brand.name}. {t("footer.rights")}
             <span className="block sm:inline sm:ml-2 text-neutral-500">
-              Desarrollado y mantenido por {appConfig.author.name}
+              {t("footer.maintainedBy")} {appConfig.author.name}
             </span>
           </div>
           <div className="text-center sm:text-right text-[10px] uppercase tracking-[0.35em] text-white/40 font-mono">
-            {appConfig.brand.tagline}
+            {t("hero.tagline")}
           </div>
         </div>
       </div>
