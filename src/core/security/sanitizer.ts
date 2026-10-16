@@ -81,9 +81,10 @@ export class SecuritySanitizer {
     if (cleaned.length > 25) {
       return { isValid: false, error: "El número de contacto excede la longitud máxima permitida." };
     }
-    // E.164 and international contact regex
-    const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]{6,20}$/;
-    if (!phoneRegex.test(cleaned)) {
+    // Validar que contenga solo caracteres telefónicos permitidos y al menos 7 dígitos
+    const phoneRegex = /^[+]?[0-9\s().-]{7,25}$/;
+    const digitCount = (cleaned.match(/\d/g) || []).length;
+    if (!phoneRegex.test(cleaned) || digitCount < 7) {
       return { isValid: false, error: "El formato telefónico no es válido (ej: +56 9 5333 2870)." };
     }
     return { isValid: true };

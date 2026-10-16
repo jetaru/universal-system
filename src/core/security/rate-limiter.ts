@@ -70,6 +70,20 @@ export class SecurityRateLimiter {
     this.saveTimestamps(timestamps);
   }
 
+  /**
+   * Restablece el historial de peticiones (útil para pruebas unitarias o reinicio de sesión).
+   */
+  static reset(): void {
+    this.inMemoryTimestamps = [];
+    if (typeof window !== "undefined" && window.sessionStorage) {
+      try {
+        window.sessionStorage.removeItem(this.STORAGE_KEY);
+      } catch {
+        // Ignorar
+      }
+    }
+  }
+
   private static getTimestamps(): number[] {
     if (typeof window !== "undefined" && window.sessionStorage) {
       try {

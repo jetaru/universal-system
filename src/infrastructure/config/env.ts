@@ -23,6 +23,21 @@ export const appConfig = {
     availability: "Lunes a Sábados con cita previa coordinada",
     hardwareGuarantee: "Garantía formal de 90 días por escrito",
   },
+  emailjs: {
+    /**
+     * Clave pública de EmailJS (Account Public Key).
+     * Es segura para exponerse en el cliente web según las especificaciones de EmailJS.
+     */
+    publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "fc4QxiMiBJhDBwCbH",
+    /**
+     * ID del servicio de correo creado en el Dashboard de EmailJS (ej: Gmail, Outlook).
+     */
+    serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_gmail_jeta_us",
+    /**
+     * ID de la plantilla de correo configurada en EmailJS (Email Templates).
+     */
+    templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "template_us",
+  },
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
   isProduction: process.env.NODE_ENV === "production",
 };
