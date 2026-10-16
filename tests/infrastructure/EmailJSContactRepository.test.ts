@@ -18,7 +18,7 @@ describe("EmailJSContactRepository (Unit Tests)", () => {
       return { status: 200, text: "OK" };
     };
 
-    const repo = new EmailJSContactRepository(mockSender);
+    const repo = new EmailJSContactRepository(mockSender, 0);
 
     const message: ContactMessage = {
       name: "Jorge Thompson",
@@ -60,12 +60,40 @@ describe("EmailJSContactRepository (Unit Tests)", () => {
     assert.equal(call.templateParams.to_email, appConfig.author.email);
   });
 
-  it("debe activar fallback resiliente hacia WhatsApp/mailto si EmailJS arroja un error", async () => {
-    const failingSender: EmailJSSenderFn = async () => {
+  it("debe reintentar automáticamente si el primer intento falla y tener éxito si el segundo pasa", async () => {
+    let callCount = 0;
+    const transientFailingSender: EmailJSSenderFn = async () => {
+      callCount++;
+      if (callCount === 1) {
+        throw new Error("Temporary network glitch");
+      }
+      return { status: 200, text: "OK" };
+    };
+
+    const repo = new EmailJSContactRepository(transientFailingSender, 10);
+
+    const message: ContactMessage = {
+      name: "Carlos Méndez",
+      contact: "+56 9 1234 5678",
+      service: "asesoria",
+      detail: "Configuración de seguridad en banca móvil",
+    };
+
+    const result = await repo.sendMessage(message);
+
+    assert.equal(callCount, 2, "Debe haber ejecutado exactamente 2 intentos (1 reintento)");
+    assert.equal(result.success, true);
+    assert.equal(result.deliveryMethod, "emailjs");
+  });
+
+  it("debe activar fallback resiliente hacia WhatsApp/mailto tras fallar ambos intentos", async () => {
+    let callCount = 0;
+    const persistentFailingSender: EmailJSSenderFn = async () => {
+      callCount++;
       throw new Error("The service ID is not found or quota exceeded");
     };
 
-    const repo = new EmailJSContactRepository(failingSender);
+    const repo = new EmailJSContactRepository(persistentFailingSender, 5);
 
     const message: ContactMessage = {
       name: "Mariana Silva",
@@ -76,7 +104,8 @@ describe("EmailJSContactRepository (Unit Tests)", () => {
 
     const result = await repo.sendMessage(message);
 
-    // No debe lanzar excepción al usuario, sino activar canales de contingencia
+    // Debe haber agotado los 2 intentos antes de rendirse
+    assert.equal(callCount, 2, "Debe haber intentado 2 veces antes de activar fallback");
     assert.equal(result.success, true);
     assert.equal(result.deliveryMethod, "fallback_mailto");
     assert.match(result.ticketId!, /^US-ORD-\d{4}$/);

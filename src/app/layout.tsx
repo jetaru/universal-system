@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { appConfig } from "@/infrastructure/config/env";
+import { LanguageProvider } from "@/presentation/context/LanguageContext";
 
 export const viewport: Viewport = {
   themeColor: "#090a0d",
@@ -19,6 +20,26 @@ export const metadata: Metadata = {
       url: appConfig.author.github,
     },
   ],
+  creator: appConfig.author.name,
+  publisher: appConfig.brand.name,
+  alternates: {
+    canonical: "https://jetaru.github.io/universal-system",
+    languages: {
+      "es-CL": "https://jetaru.github.io/universal-system?lang=es",
+      "en-US": "https://jetaru.github.io/universal-system?lang=en",
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   keywords: [
     "Universal System",
     "Soporte Técnico de Precisión",
@@ -30,6 +51,8 @@ export const metadata: Metadata = {
     "Chile",
     "San Pedro de la Paz",
     "Concepción",
+    "Clean Architecture",
+    "Next.js 16",
   ],
   icons: {
     icon: [
@@ -45,7 +68,10 @@ export const metadata: Metadata = {
     description:
       "Acompañamiento tecnológico empático, clases 1 a 1 de ofimática e IA, y laboratorio de soporte informático de alta precisión.",
     siteName: "Universal System",
+    url: "https://jetaru.github.io/universal-system",
     type: "website",
+    locale: "es_CL",
+    alternateLocale: ["en_US"],
     images: [
       {
         url: "assets/og-image.png",
@@ -59,8 +85,104 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Universal System | Tecnología Clara y Soporte de Precisión",
     description: "Porque aprender nunca fue tan fácil. Asesoría, clases y soporte técnico.",
+    creator: "@jetaru",
     images: ["assets/og-image.png"],
   },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://jetaru.github.io/universal-system/#organization",
+      name: "Universal System",
+      legalName: "Universal System — Tecnología Clara y Soporte de Precisión",
+      url: "https://jetaru.github.io/universal-system",
+      logo: "https://jetaru.github.io/universal-system/assets/universal-system-logo.png",
+      image: "https://jetaru.github.io/universal-system/assets/og-image.png",
+      description:
+        "Acompañamiento tecnológico empático para adultos y familias, mentorías personalizadas de aprendizaje y laboratorio de soporte técnico de alta precisión.",
+      telephone: "+56953332870",
+      email: "a.thompson.jorge@gmail.com",
+      founder: {
+        "@type": "Person",
+        name: "Jorge Thompson",
+        jobTitle: "Senior Software Engineer & Systems Architect",
+        url: "https://github.com/jetaru",
+        sameAs: [
+          "https://linkedin.com/in/jorge-e-thompson-alvarado",
+          "https://github.com/jetaru",
+        ],
+      },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "San Pedro de la Paz",
+        addressRegion: "Biobío",
+        addressCountry: "CL",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: -36.845,
+        longitude: -73.108,
+      },
+      priceRange: "$$",
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ],
+          opens: "09:00",
+          closes: "19:00",
+        },
+      ],
+      areaServed: [
+        "San Pedro de la Paz",
+        "Concepción",
+        "Chile",
+        "Global Remote",
+      ],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Servicios de Universal System",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Asesoría Tecnológica Humana",
+              description:
+                "Acompañamiento paciente para adultos mayores, home banking seguro y smartphones.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Clases de Nivelación & Productividad",
+              description:
+                "Mentorías 1 a 1 de Excel, herramientas digitales e Inteligencia Artificial aplicada.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Soporte de Precisión & Laboratorio Hardware",
+              description:
+                "Diagnóstico, optimización térmica profunda y aceleración mediante discos SSD.",
+            },
+          },
+        ],
+      },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -79,13 +201,22 @@ export default function RootLayout({
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
         <meta httpEquiv="X-Frame-Options" content="DENY" />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
-        <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+        <meta
+          httpEquiv="Permissions-Policy"
+          content="camera=(), microphone=(), geolocation=()"
+        />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+
+        {/* Structured Data (Schema.org JSON-LD) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </head>
       <body className="selection:bg-white selection:text-black min-h-screen bg-[#090a0d] text-[#f3f4f6]">
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );
