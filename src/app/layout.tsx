@@ -185,6 +185,39 @@ const structuredData = {
   ],
 };
 
+/**
+ * Serializa JSON-LD escapando `<`, `>` y `&` (y separadores de línea Unicode) para que ningún
+ * valor pueda cerrar la etiqueta <script> (`</script>`) ni inyectar HTML: defensa en profundidad
+ * aunque hoy el contenido sea estático.
+ */
+function serializeJsonLd(data: unknown): string {
+  return JSON.stringify(data)
+    .replace(/</g, "\\u003c")
+    .replace(/>/g, "\\u003e")
+    .replace(/&/g, "\\u0026")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
+}
+
+/**
+ * Content-Security-Policy para exportación estática (se entrega vía <meta>, pues GitHub Pages
+ * no permite cabeceras HTTP). Se retiró el comodín `https:` de `script-src` y `connect-src`
+ * (permitía cargar/enviar a cualquier origen HTTPS) y se limitó al único servicio externo
+ * de datos (EmailJS). En desarrollo se relaja para HMR/React Refresh de Turbopack.
+ */
+const isProd = process.env.NODE_ENV === "production";
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline'${isProd ? "" : " 'unsafe-eval'"}`,
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "img-src 'self' data: https: blob:",
+  `connect-src 'self' https://api.emailjs.com${isProd ? "" : " ws://localhost:* http://localhost:*"}`,
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self' https://wa.me",
+].join("; ");
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -196,7 +229,7 @@ export default function RootLayout({
         {/* OWASP Security Headers (Static Export & Client Defense) */}
         <meta
           httpEquiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https:; base-uri 'self'; form-action 'self' https://wa.me;"
+          content={contentSecurityPolicy}
         />
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
         <meta httpEquiv="X-Frame-Options" content="DENY" />
@@ -212,7 +245,7 @@ export default function RootLayout({
         {/* Structured Data (Schema.org JSON-LD) */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
         />
       </head>
       <body className="selection:bg-white selection:text-black min-h-screen bg-[#090a0d] text-[#f3f4f6]">
