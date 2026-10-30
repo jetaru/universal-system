@@ -27,7 +27,9 @@ export function Navbar() {
     { label: t("nav.lab"), href: "#laboratorio" },
     { label: t("nav.methodology"), href: "#metodologia" },
     { label: t("nav.enterprise"), href: "#empresas" },
-    { label: t("nav.testimonials"), href: "#testimonios" },
+    ...(appConfig.features.showTestimonials
+      ? [{ label: t("nav.testimonials"), href: "#testimonios" }]
+      : []),
   ];
 
   return (

@@ -1,4 +1,5 @@
 import React from "react";
+import { appConfig } from "@/infrastructure/config/env";
 import { Navbar } from "@/presentation/components/layout/Navbar";
 import { Footer } from "@/presentation/components/layout/Footer";
 import { HeroSection } from "@/presentation/components/sections/HeroSection";
@@ -28,7 +29,7 @@ export default function HomePage() {
         <MethodologySection />
         <EnterpriseSection />
         <SolutionSelectorSection />
-        <TestimonialsSection />
+        {appConfig.features.showTestimonials && <TestimonialsSection />}
       </main>
       <Footer />
     </div>

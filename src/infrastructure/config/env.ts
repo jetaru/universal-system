@@ -4,6 +4,13 @@ export { GLOBAL_PRICING_CONFIG };
 
 export const appConfig = {
   pricing: GLOBAL_PRICING_CONFIG,
+  features: {
+    /**
+     * Controla la visibilidad del apartado de Testimonios y su acceso en el Navbar.
+     * Cambiar a `true` cuando se carguen testimonios reales verificados.
+     */
+    showTestimonials: false,
+  },
   brand: {
     name: "Universal System",
     shortName: "US",
