@@ -3,6 +3,8 @@ import { Navbar } from "@/presentation/components/layout/Navbar";
 import { Footer } from "@/presentation/components/layout/Footer";
 import { HeroSection } from "@/presentation/components/sections/HeroSection";
 import { PillarsSection } from "@/presentation/components/sections/PillarsSection";
+import { LevelsSection } from "@/presentation/components/sections/LevelsSection";
+import { PricingSection } from "@/presentation/components/sections/PricingSection";
 import { LaboratorySection } from "@/presentation/components/sections/LaboratorySection";
 import { MethodologySection } from "@/presentation/components/sections/MethodologySection";
 import { EnterpriseSection } from "@/presentation/components/sections/EnterpriseSection";
@@ -20,6 +22,8 @@ export default function HomePage() {
       <main id="main-content">
         <HeroSection />
         <PillarsSection />
+        <LevelsSection />
+        <PricingSection />
         <LaboratorySection />
         <MethodologySection />
         <EnterpriseSection />

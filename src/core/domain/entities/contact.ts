@@ -7,7 +7,7 @@ export interface ContactMessage {
   /** Número de teléfono o WhatsApp de contacto */
   contact: string;
   /** Tipo de servicio requerido */
-  service: "asesoria" | "clases" | "soporte";
+  service: "clases" | "soporte" | "consultoria" | "asesoria";
   /** Detalle o consulta específica del usuario */
   detail?: string;
   /** Correo electrónico opcional del solicitante */

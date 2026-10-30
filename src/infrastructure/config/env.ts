@@ -1,4 +1,9 @@
+import { GLOBAL_PRICING_CONFIG } from "./pricing.config";
+
+export { GLOBAL_PRICING_CONFIG };
+
 export const appConfig = {
+  pricing: GLOBAL_PRICING_CONFIG,
   brand: {
     name: "Universal System",
     shortName: "US",

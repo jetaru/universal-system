@@ -38,11 +38,6 @@ export function SolutionSelectorSection() {
 
   const services = [
     {
-      id: "asesoria" as const,
-      title: t("selector.service.asesoria.title"),
-      desc: t("selector.service.asesoria.desc"),
-    },
-    {
       id: "clases" as const,
       title: t("selector.service.clases.title"),
       desc: t("selector.service.clases.desc"),
@@ -51,6 +46,11 @@ export function SolutionSelectorSection() {
       id: "soporte" as const,
       title: t("selector.service.soporte.title"),
       desc: t("selector.service.soporte.desc"),
+    },
+    {
+      id: "consultoria" as const,
+      title: t("selector.service.consultoria.title"),
+      desc: t("selector.service.consultoria.desc"),
     },
   ];
 

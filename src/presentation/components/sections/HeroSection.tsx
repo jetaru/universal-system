@@ -3,11 +3,14 @@
 import React from "react";
 import Image from "next/image";
 import { appConfig } from "@/infrastructure/config/env";
+import { GLOBAL_PRICING_CONFIG } from "@/infrastructure/config/pricing.config";
+import { FileDown } from "@/presentation/components/ui/Icons";
 import { useLanguage } from "@/presentation/context/LanguageContext";
 
 export function HeroSection() {
   const basePath = appConfig.basePath;
   const logoSrc = `${basePath}/assets/universal-system-logo.png`;
+  const catalogHref = `${basePath}${GLOBAL_PRICING_CONFIG.catalogPdfPath}`;
   const { content, t } = useLanguage();
 
   return (
@@ -65,7 +68,7 @@ export function HeroSection() {
         </p>
 
         {/* CTA Buttons */}
-        <div className="animate-hero-4 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+        <div className="animate-hero-4 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 w-full sm:w-auto">
           <a
             className="luxury-btn w-full sm:w-auto px-8 py-3.5 bg-white text-black text-xs font-semibold uppercase tracking-[0.22em] rounded-sm hover:bg-neutral-200 transition-colors shadow-lg shadow-white/5 active:scale-95"
             href="#selector"
@@ -74,9 +77,18 @@ export function HeroSection() {
           </a>
           <a
             className="luxury-btn w-full sm:w-auto px-8 py-3.5 bg-transparent border border-white/20 text-white text-xs font-medium uppercase tracking-[0.22em] rounded-sm hover:bg-white/5 hover:border-white/40 transition-all duration-300 active:scale-95"
-            href="#pilares"
+            href="#planes"
           >
-            {t("hero.ctaExplore")}
+            {t("nav.pricing")}
+          </a>
+          <a
+            className="luxury-btn w-full sm:w-auto px-6 py-3.5 bg-emerald-950/30 border border-emerald-500/35 text-emerald-300 text-xs font-mono uppercase tracking-[0.16em] rounded-sm hover:bg-emerald-950/50 hover:border-emerald-400 transition-all duration-300 active:scale-95 inline-flex items-center justify-center gap-2"
+            href={catalogHref}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FileDown className="w-3.5 h-3.5" />
+            <span>{t("hero.ctaCatalog")}</span>
           </a>
         </div>
 

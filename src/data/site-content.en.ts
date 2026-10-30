@@ -1,4 +1,14 @@
-import { ServicePillar, LabChecklistItem, Testimonial, TrustMetric } from "@/core/domain/entities/content";
+import {
+  ServicePillar,
+  LabChecklistItem,
+  Testimonial,
+  TrustMetric,
+  CurriculumLevelOverview,
+  ScheduleModalityItem,
+  PricingPlanContent,
+  SupportRateContent,
+} from "@/core/domain/entities/content";
+import { GLOBAL_PRICING_CONFIG } from "@/infrastructure/config/pricing.config";
 
 export const trustMetricsEn: TrustMetric[] = [
   { value: "100%", label: "Patience and Clarity" },
@@ -11,34 +21,20 @@ export const servicePillarsEn: ServicePillar[] = [
   {
     id: "pilar-1",
     number: "01",
-    title: "Human Technology Advisory",
+    title: "Skill Leveling & Productivity Classes",
     description:
-      "Specially designed for seniors, families, and busy professionals. We clear doubts with absolute empathy and without complex technical jargon.",
+      "Guided sessions in regular or evening tracks incorporating empathetic human tech advisory for seniors, families, and busy professionals. Progress without jargon from everyday confidence to modern workplace tools.",
     benefits: [
-      "Secure online banking and two-factor authentication setup.",
-      "Comprehensive smartphone setup (Android & iOS).",
-      "Official digital procedures without stress or roadblocks.",
+      "Patient advisory on smartphones, secure online banking, and digital procedures.",
+      "Modern office workflows: spreadsheets, executive docs, and cloud organization.",
+      "Applied Artificial Intelligence with sound judgment for daily life and work.",
     ],
-    ctaText: "Request Advisory",
-    ctaAnchor: "#selector",
+    ctaText: "Explore Levels & Plans",
+    ctaAnchor: "#planes",
   },
   {
     id: "pilar-2",
     number: "02",
-    title: "Skill Leveling & Productivity Classes",
-    description:
-      "1-on-1 mentorships adapted to your personal pace. Build digital independence for work, academics, or personal projects.",
-    benefits: [
-      "Modern office tools: Excel, Google Sheets, professional docs.",
-      "Applied Artificial Intelligence for daily tasks and workflows.",
-      "Cloud file management and organized digital workspace.",
-    ],
-    ctaText: "Explore Class Plans",
-    ctaAnchor: "#selector",
-  },
-  {
-    id: "pilar-3",
-    number: "03",
     title: "Precision Lab & Hardware Support",
     description:
       "Exhaustive diagnostics and repair for laptops and desktop workstations. Guaranteed privacy and certified high-durability components.",
@@ -47,8 +43,176 @@ export const servicePillarsEn: ServicePillar[] = [
       "Deep thermal overhaul and premium thermal paste replacement.",
       "Secure backup and confidential data recovery.",
     ],
-    ctaText: "Consult Repair",
-    ctaAnchor: "#selector",
+    ctaText: "View Support Rates",
+    ctaAnchor: "#planes",
+  },
+  {
+    id: "pilar-3",
+    number: "03",
+    title: "Digital Consulting & B2B Solutions",
+    description:
+      "Strategic technology advisory, software architecture, and infrastructure modernization for businesses requiring scalability, secure integrations, and high availability.",
+    benefits: [
+      "Clean software architecture, robust APIs, and legacy modernization.",
+      "Enterprise platform integration, cloud workflows, and OWASP security.",
+      "Senior technical leadership with direct access to our B2B portfolio.",
+    ],
+    ctaText: "Go to Enterprise B2B",
+    ctaAnchor: "#empresas",
+  },
+];
+
+export const curriculumLevelsEn: CurriculumLevelOverview[] = [
+  {
+    id: "nivel-1",
+    levelNumber: "01",
+    badge: "Core Foundation",
+    title: "Foundations & Operational Fluency",
+    generalFocus:
+      "A calm initial stage designed to build natural confidence with your everyday devices, organize your personal space, and communicate without fear of mistakes.",
+    scopeHint: "Freely selectable or sequential level",
+  },
+  {
+    id: "nivel-2",
+    levelNumber: "02",
+    badge: "Daily Confidence",
+    title: "Digital Safeguards & Everyday Autonomy",
+    generalFocus:
+      "Preventive judgment, personal protection habits, and independent handling of frequent online procedures and modern communication channels.",
+    scopeHint: "Freely selectable or sequential level",
+  },
+  {
+    id: "nivel-3",
+    levelNumber: "03",
+    badge: "Productivity & AI",
+    title: "Structuring, Data & Intelligent Tools",
+    generalFocus:
+      "Practical transition toward connected workspaces, clear interpretation of spreadsheets, and thoughtful adoption of artificial intelligence assistants.",
+    scopeHint: "Freely selectable or sequential level",
+  },
+];
+
+export const scheduleModalitiesEn: ScheduleModalityItem[] = [
+  {
+    id: "normal",
+    label: "Regular Schedule (Daytime)",
+    windowLabel: "Daytime Track • Morning / Afternoon",
+    description:
+      "Live guided sessions held during clear daytime blocks, ideal for learning calmly with unhurried step-by-step guidance.",
+  },
+  {
+    id: "vespertino",
+    label: "Evening Schedule",
+    windowLabel: "After-Office Track • Late Afternoon / Evening",
+    description:
+      "Blocks tailored for working professionals and students who want steady progress after regular daytime commitments.",
+  },
+];
+
+export const pricingPlansEn: PricingPlanContent[] = [
+  {
+    id: "basico",
+    badge: "1 Selectable Level",
+    name: "Basic Plan",
+    scopeSummary: "1 freely selectable level (Level 01, 02, or 03)",
+    scheduleSummary: "1 Schedule of choice (Regular or Evening)",
+    description:
+      "You can select any available level based on what you want to learn; taking a single individual level always qualifies as our Basic Plan.",
+    highlights: [
+      "Free selection of any single available pathway level.",
+      "Attendance in Regular or Evening schedule track.",
+      "Private step-by-step guidance and patient live support.",
+    ],
+    ctaText: "Select Basic Plan",
+  },
+  {
+    id: "intermedio",
+    badge: "Most Balanced",
+    name: "Intermediate Plan",
+    scopeSummary: "2 selectable levels of your choice",
+    scheduleSummary: "1 Schedule of choice (Regular or Evening)",
+    description:
+      "Allows you to choose any two levels to connect learning stages with direct savings and methodological continuity.",
+    highlights: [
+      "Structured coverage of 2 selectable pathway levels.",
+      "Attendance in Regular or Evening track.",
+      "Priority seat reservation and continuous milestone tracking.",
+    ],
+    ctaText: "Select Intermediate Plan",
+  },
+  {
+    id: "avanzado",
+    badge: "Full Pathway",
+    name: "Advanced Plan",
+    scopeSummary: "Covers up to all 3 selectable levels",
+    scheduleSummary: "1 Schedule of choice (Regular or Evening)",
+    description:
+      "Covers the complete three-level pathway to master everything from core foundations to modern productivity and applied AI.",
+    highlights: [
+      "Full access to all 3 levels at a preferential rate.",
+      "Regular or Evening schedule modality.",
+      "Initial placement review and tailored progression roadmap.",
+    ],
+    ctaText: "Select Advanced Plan",
+  },
+  {
+    id: "intensivo",
+    badge: "Dual Schedule",
+    name: "Special Intensive Plan",
+    scopeSummary: "Selectable levels with accelerated reinforcement",
+    scheduleSummary: "Attendance across BOTH schedules: Regular + Evening",
+    description:
+      "Enables taking your selected level(s) across both Regular and Evening blocks to double guided practice and learning speed.",
+    highlights: [
+      "Active dual pass for both Regular and Evening tracks.",
+      "Free level selection with double weekly guided practice.",
+      "Ideal for urgent workplace goals or rapid skill leveling.",
+    ],
+    ctaText: "Inquire Intensive Pass",
+  },
+];
+
+export const supportRatesEn: SupportRateContent[] = [
+  {
+    id: "diagnostico-presupuesto",
+    name: "Multi-Phase Analysis, Lab Diagnostic & Formal Quote",
+    detail:
+      "Complete 4-stage bench inspection (thermals, storage health, power rails, and OS integrity) with a closed written quote.",
+    priceCLP: GLOBAL_PRICING_CONFIG.supportRates.analysisAndQuoteCLP,
+    isFromPrice: false,
+    isPrimaryDiagnostic: true,
+  },
+  {
+    id: "optimizacion-sistema",
+    name: "System Optimization & Logical Cleanup",
+    detail:
+      "Deep startup tuning, bloatware/adware removal, security hardening, and smooth responsiveness without data loss.",
+    priceCLP: GLOBAL_PRICING_CONFIG.supportRates.softwareOptimizationFromCLP,
+    isFromPrice: true,
+  },
+  {
+    id: "mantenimiento-termico",
+    name: "Precision Thermal Maintenance",
+    detail:
+      "Controlled disassembly, internal airflow cleaning, and high-conductivity thermal paste renewal to prevent overheating.",
+    priceCLP: GLOBAL_PRICING_CONFIG.supportRates.thermalMaintenanceFromCLP,
+    isFromPrice: true,
+  },
+  {
+    id: "upgrade-ssd",
+    name: "SSD Acceleration & Clean Migration",
+    detail:
+      "Solid-state drive installation and clean system migration (labor rate; SSD hardware quoted separately by capacity).",
+    priceCLP: GLOBAL_PRICING_CONFIG.supportRates.ssdUpgradeLaborFromCLP,
+    isFromPrice: true,
+  },
+  {
+    id: "respaldo-recuperacion",
+    name: "Encrypted Backup & Logical Data Recovery",
+    detail:
+      "Confidential extraction and safeguarding of family photos, personal records, or business files under strict privacy protocols.",
+    priceCLP: GLOBAL_PRICING_CONFIG.supportRates.dataBackupRecoveryFromCLP,
+    isFromPrice: true,
   },
 ];
 
@@ -104,7 +268,7 @@ export const methodologyStepsEn = [
     number: "03",
     title: "Guided Execution",
     description:
-      "Whether through patient 1-on-1 tutoring or certified benchwork with enterprise-grade components.",
+      "Whether through patient guided tutoring or certified benchwork with enterprise-grade components.",
   },
   {
     number: "04",
@@ -125,7 +289,7 @@ export const testimonialsEn: Testimonial[] = [
   {
     id: "test-2",
     quote:
-      "\"I was struggling with Excel for my new job and couldn't figure out complex formulas. The 1-on-1 sessions were precise, practical, and directly applied to what I needed.\"",
+      "\"I was struggling with Excel for my new job and couldn't figure out complex formulas. The sessions were precise, practical, and directly applied to what I needed.\"",
     author: "Mateo D. (27 years old)",
     meta: "Productivity Leveling Mentorship",
   },

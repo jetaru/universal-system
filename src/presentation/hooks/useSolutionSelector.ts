@@ -8,7 +8,7 @@ export function useSolutionSelector() {
   const [formData, setFormData] = useState<ContactMessage>({
     name: "",
     contact: "",
-    service: "asesoria",
+    service: "clases",
     detail: "",
     _honeypot: "",
   });
@@ -17,7 +17,7 @@ export function useSolutionSelector() {
   const [result, setResult] = useState<ContactSubmissionResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const setService = (service: "asesoria" | "clases" | "soporte") => {
+  const setService = (service: ContactMessage["service"]) => {
     setFormData((prev) => ({ ...prev, service }));
   };
 
@@ -48,7 +48,7 @@ export function useSolutionSelector() {
     setFormData({
       name: "",
       contact: "",
-      service: "asesoria",
+      service: "clases",
       detail: "",
       _honeypot: "",
     });

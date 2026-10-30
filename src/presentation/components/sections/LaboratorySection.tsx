@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { ShieldCheck, Cpu } from "@/presentation/components/ui/Icons";
+import { GLOBAL_PRICING_CONFIG, formatCLP } from "@/infrastructure/config/pricing.config";
 import { useLanguage } from "@/presentation/context/LanguageContext";
 
 export function LaboratorySection() {
@@ -21,6 +22,7 @@ export function LaboratorySection() {
   };
 
   const isEs = language === "es";
+  const diagnosticCLP = formatCLP(GLOBAL_PRICING_CONFIG.supportRates.analysisAndQuoteCLP);
 
   return (
     <section
@@ -137,14 +139,14 @@ export function LaboratorySection() {
               })}
             </div>
 
-            <div className="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8b8e99]">
+            <div className="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#8b8e99]">
               <span>
                 {isEs
-                  ? "¿Tu equipo funciona lento o se sobrecalienta?"
-                  : "Is your computer running slow or overheating?"}
+                  ? `Análisis de 4 fases + presupuesto formal: ${diagnosticCLP} CLP`
+                  : `4-stage analysis + formal written quote: ${diagnosticCLP} CLP`}
               </span>
               <a
-                className="mt-2 sm:mt-0 text-white font-medium underline uppercase tracking-widest text-[11px] hover:text-white/70 transition-colors"
+                className="mt-1 sm:mt-0 text-white font-medium underline uppercase tracking-widest text-[11px] hover:text-white/70 transition-colors"
                 href="#selector"
               >
                 {isEs ? "Solicitar chequeo técnico" : "Request technical checkup"}
