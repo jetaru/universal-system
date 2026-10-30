@@ -5,7 +5,6 @@ import Link from "next/link";
 import { appConfig } from "@/infrastructure/config/env";
 import { WhatsAppIcon, Menu, X, ArrowRight } from "@/presentation/components/ui/Icons";
 import { useLanguage } from "@/presentation/context/LanguageContext";
-import { Button } from "@/presentation/components/ui/button";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,8 +22,8 @@ export function Navbar() {
 
   const navLinks = [
     { label: t("nav.advisory"), href: "#pilares" },
-    { label: t("nav.classes"), href: "#pilares" },
-    { label: t("nav.support"), href: "#pilares" },
+    { label: t("nav.levels"), href: "#niveles" },
+    { label: t("nav.pricing"), href: "#planes" },
     { label: t("nav.lab"), href: "#laboratorio" },
     { label: t("nav.methodology"), href: "#metodologia" },
     { label: t("nav.enterprise"), href: "#empresas" },
@@ -54,7 +53,7 @@ export function Navbar() {
 
         {/* Desktop Navigation Links with subtle underline animation */}
         <nav
-          className="hidden xl:flex items-center space-x-7 text-[11px] tracking-[0.22em] uppercase text-[#8b8e99]"
+          className="hidden xl:flex items-center space-x-6 text-[11px] tracking-[0.2em] uppercase text-[#8b8e99]"
           data-purpose="desktop-nav"
           aria-label="Navegación principal"
         >

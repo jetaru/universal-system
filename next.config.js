@@ -22,6 +22,11 @@ const nextConfig = {
     NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "template_us",
   },
 
+  // Política de avisos de actualización de seguridad asistida
+  experimental: {
+    agentUpgrade: "security",
+  },
+
   // Reglas de Turbopack para procesar Tailwind CSS v4
   turbopack: {
     rules: {

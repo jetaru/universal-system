@@ -1,6 +1,12 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { siteContentBundles, trustMetricsEs, trustMetricsEn, servicePillarsEs, servicePillarsEn } from "@/data/site-content";
+import {
+  siteContentBundles,
+  trustMetricsEs,
+  trustMetricsEn,
+  servicePillarsEs,
+  servicePillarsEn,
+} from "@/data/site-content";
 
 describe("i18n & Bilingual Content System (Unit Tests)", () => {
   it("debe contener paquetes de contenido para español (es) e inglés (en)", () => {
@@ -35,6 +41,29 @@ describe("i18n & Bilingual Content System (Unit Tests)", () => {
         en.benefits.length,
         `La cantidad de beneficios para el pilar ${i} debe coincidir`
       );
+    }
+  });
+
+  it("debe mantener paridad en el desglose general de niveles, horarios, planes y tarifas de soporte", () => {
+    const es = siteContentBundles.es;
+    const en = siteContentBundles.en;
+
+    assert.equal(es.curriculumLevels.length, 3);
+    assert.equal(es.curriculumLevels.length, en.curriculumLevels.length);
+    assert.equal(es.scheduleModalities.length, 2);
+    assert.equal(es.scheduleModalities.length, en.scheduleModalities.length);
+    assert.equal(es.pricingPlans.length, 4);
+    assert.equal(es.pricingPlans.length, en.pricingPlans.length);
+    assert.equal(es.supportRates.length, en.supportRates.length);
+
+    for (let i = 0; i < es.pricingPlans.length; i++) {
+      assert.equal(es.pricingPlans[i].id, en.pricingPlans[i].id);
+      assert.equal(es.pricingPlans[i].highlights.length, en.pricingPlans[i].highlights.length);
+    }
+
+    for (let i = 0; i < es.supportRates.length; i++) {
+      assert.equal(es.supportRates[i].id, en.supportRates[i].id);
+      assert.equal(es.supportRates[i].priceCLP, en.supportRates[i].priceCLP);
     }
   });
 

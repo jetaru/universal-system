@@ -58,9 +58,10 @@ export class EmailJSContactRepository implements IContactRepository {
 
     // 2. Mapeo amigable de etiquetas de servicio
     const serviceLabels: Record<string, string> = {
-      asesoria: "Asesoría Tecnológica & Paciencia",
-      clases: "Clases 1 a 1 de Nivelación",
+      clases: "Clases de Nivelación, Asesoría & Productividad",
       soporte: "Soporte Técnico Notebook/PC & Laboratorio",
+      consultoria: "Consultoría Digital & Soluciones B2B",
+      asesoria: "Asesoría Tecnológica & Nivelación",
     };
     const serviceLabel = serviceLabels[message.service] || message.service;
 

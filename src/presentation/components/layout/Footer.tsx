@@ -2,6 +2,7 @@
 
 import React from "react";
 import { appConfig } from "@/infrastructure/config/env";
+import { GLOBAL_PRICING_CONFIG } from "@/infrastructure/config/pricing.config";
 import {
   WhatsAppIcon,
   GithubIcon,
@@ -10,6 +11,7 @@ import {
   MapPin,
   Clock,
   ShieldCheck,
+  FileDown,
 } from "@/presentation/components/ui/Icons";
 import { useLanguage } from "@/presentation/context/LanguageContext";
 import { PlatformStatusBadge } from "@/presentation/components/ui/PlatformStatusBadge";
@@ -17,6 +19,7 @@ import { PlatformStatusBadge } from "@/presentation/components/ui/PlatformStatus
 export function Footer() {
   const currentYear = new Date().getFullYear();
   const { t } = useLanguage();
+  const catalogHref = `${appConfig.basePath}${GLOBAL_PRICING_CONFIG.catalogPdfPath}`;
 
   return (
     <footer
@@ -69,15 +72,23 @@ export function Footer() {
                   className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200"
                   href="#pilares"
                 >
-                  {t("nav.advisory")}
+                  {t("nav.classes")}
                 </a>
               </li>
               <li>
                 <a
                   className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200"
-                  href="#pilares"
+                  href="#niveles"
                 >
-                  {t("nav.classes")}
+                  {t("levels.title")}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200"
+                  href="#planes"
+                >
+                  {t("nav.pricing")}
                 </a>
               </li>
               <li>
@@ -91,9 +102,20 @@ export function Footer() {
               <li>
                 <a
                   className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-200"
-                  href="#metodologia"
+                  href="#empresas"
                 >
-                  {t("methodology.title")}
+                  {t("nav.consulting")}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-emerald-400 hover:text-emerald-300 transition-colors inline-flex items-center gap-1.5 hover:translate-x-1 duration-200 font-mono text-[11px]"
+                  href={catalogHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FileDown className="w-3.5 h-3.5" />
+                  <span>{t("pricing.downloadPdf")}</span>
                 </a>
               </li>
               <li>

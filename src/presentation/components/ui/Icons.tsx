@@ -22,6 +22,9 @@ import {
   Menu,
   X,
   Cpu,
+  FileDown,
+  Layers,
+  Lock,
 } from "lucide-react";
 
 export {
@@ -47,6 +50,9 @@ export {
   Menu,
   X,
   Cpu,
+  FileDown,
+  Layers,
+  Lock,
 };
 
 export function WhatsAppIcon({ className = "w-5 h-5", ...props }: React.SVGProps<SVGSVGElement>) {
